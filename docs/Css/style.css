@@ -1,16 +1,14 @@
 
-.fantasy {font-family: Fantasy;}
-.arial {font-family: Arial;}
-
-h1{
+h1,h2,h3{
     font-weight: 400;
+    font-family: 'Russo One', sans-serif;
 }
 
-h2{
-    font-weight: 400;
+.oi { 
+    width: 50%;
 }
 
-h3{
-    font-weight: 400;
+.imagem{
+    display: flex;
+    justify-content: center;
 }
-
