@@ -1,10 +1,16 @@
 
-.fantasy {font-family:Fantasy;}
+.fantasy {font-family: Fantasy;}
 .arial {font-family: Arial;}
 
-.container img {
-    max-width:200px;
-    max-height:150px;
-    width: auto;
-    height: auto;
+h1{
+    font-weight: 400;
 }
+
+h2{
+    font-weight: 400;
+}
+
+h3{
+    font-weight: 400;
+}
+
