@@ -1,0 +1,10 @@
+
+.fantasy {font-family:Fantasy;}
+.arial {font-family: Arial;}
+
+.container img {
+    max-width:200px;
+    max-height:150px;
+    width: auto;
+    height: auto;
+}
