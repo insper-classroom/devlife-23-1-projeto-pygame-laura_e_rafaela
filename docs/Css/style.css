@@ -4,11 +4,17 @@ h1,h2,h3{
     font-family: 'Russo One', sans-serif;
 }
 
-.oi { 
+.imagem_jogo_inicio { 
     width: 50%;
 }
 
 .imagem{
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.header{
     display: flex;
     justify-content: center;
 }
