@@ -1,28 +1,25 @@
 
 h1,h2,h3{
     font-weight: 400;
-font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     color:rgb(52, 81, 91);
     border-radius:10%;
     background-size: contain;
+    margin-top: 1%;
+    margin-bottom: 1;
 }
-h1{
-    /* background-image: url(../img_site/imagem_chao_fundo.png); */
+h3{
+    margin-left: 2%;
 }
-.imagem_jogo_inicio{ 
-    width: 30%;
-    height: 30%;
-    margin:0%;
+
+h2{
+    font-size: 180%;
 }
-.imagem_jogo_borda{
-    width: 15%;
+
+h1,h2{
+    font-weight: 600;
 }
-.imagem{
-    display: flex;
-    justify-content: center;    
-    background-color: antiquewhite;
-    font-size: 200;
-}
+
 .header{
     display: flex;
     justify-content: center;
@@ -31,24 +28,30 @@ h1{
 
 p{
     font-family: 'Kanit', sans-serif;
+    color: white;
     background-size: cover;
-    background-color:rgb(238, 227, 205);
+    background-color:rgb(90, 114, 122);
     border-radius: 15px;
+    padding: 1%;
+    margin-right: 3%;
+    margin-left: 3%;
 }
 body{
     background-image: url(../img_site/fundo_textura.png);
-    background-size: 92%;
+    
 }
 
-img {
-    width:30%;
+.imagem{
     display: flex;
     justify-content: center;
+    margin-bottom: 3%;
 }
 .container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 #mostrar{
@@ -58,3 +61,9 @@ img {
 #passar_mouse:hover #mostrar{
     display:block;
     }
+
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(213, 194, 169);
+}
