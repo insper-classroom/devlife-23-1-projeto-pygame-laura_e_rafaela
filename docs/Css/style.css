@@ -7,9 +7,6 @@ h1,h2,h3{
     border-radius:10%;
     background-size: contain;
 }
-h1{
-    /* background-image: url(../img_site/imagem_chao_fundo.png); */
-}
 .imagem_jogo_inicio{ 
     width: 30%;
     height: 30%;
