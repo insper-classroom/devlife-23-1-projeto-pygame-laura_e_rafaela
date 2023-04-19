@@ -1,38 +1,47 @@
 
 h1,h2,h3{
     font-weight: 400;
-    font-family: 'Russo One', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
     color:rgb(52, 81, 91);
-    background-color: antiquewhite;
     border-radius:10%;
     background-size: contain;
 }
-h1{
-    /* background-image: url(../img_site/imagem_chao_fundo.png); */
-}
-.imagem_jogo_inicio{ 
-    width: 30%;
-    height: 30%;
-    margin:0%;
-}
-.imagem_jogo_borda{
-    width: 15%;
-}
-.imagem{
-    display: flex;
-    justify-content: center;    
-    background-color: antiquewhite;
-    font-size: 200;
-}
 
+h2{
+    background-color: rgb(190, 204, 204);
+}
 .header{
     display: flex;
     justify-content: center;
+    font-size: 50px;
 }
 
+p{
+    font-family: 'Kanit', sans-serif;
+    background-size: cover;
+    background-color:rgb(238, 227, 205);
+    border-radius: 15px;
+}
 body{
-    background-color: rgba(104,151,165,255);
-    /* background-color: rgb(224, 193, 161); */
-    background-image: url(../img_site/fundo_marrom_2.png);
+    background-image: url(../img_site/fundo_textura.png);
     background-size: 92%;
 }
+
+img {
+    width:30%;
+    display: flex;
+    justify-content: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#mostrar{
+    display: none;
+  }
+  
+#passar_mouse:hover #mostrar{
+    display:block;
+    }
