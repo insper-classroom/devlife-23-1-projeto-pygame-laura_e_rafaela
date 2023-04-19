@@ -5,21 +5,23 @@ h1,h2,h3{
     color:rgb(52, 81, 91)
 }
 
-.imagem_jogo_inicio { 
-    width: 50%;
+.imagem_jogo_inicio{ 
+    width: 30%;
+    height: 30%;
+    margin:0%;
 }
-
+.imagem_jogo_borda{
+    width: 15%;
+}
 .imagem{
     display: flex;
-    justify-content: center;
-    justify-content: space-evenly;
+    justify-content: center;    
 }
-
 .header{
     display: flex;
     justify-content: center;
 }
 
 body{
-    background-color: rgb(177, 228, 245);
+    background-color: rgb(145, 108, 68);
 }
