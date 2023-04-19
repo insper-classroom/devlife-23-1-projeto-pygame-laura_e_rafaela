@@ -8,7 +8,7 @@ h1,h2,h3{
     background-size: contain;
 }
 h1{
-    background-image: url(/Users/laurapontiroli/github-classroom/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela/docs/img_site/imagem_jogo_tema.png);
+    /* background-image: url(../img_site/imagem_chao_fundo.png); */
 }
 .imagem_jogo_inicio{ 
     width: 30%;
@@ -22,7 +22,6 @@ h1{
     display: flex;
     justify-content: center;    
     background-color: antiquewhite;
-    background-image: url(/Users/laurapontiroli/github-classroom/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela/docs/img_site/imagem_jogo_tema.png);
     font-size: 200;
 }
 
@@ -32,5 +31,8 @@ h1{
 }
 
 body{
-    background-color: rgb(224, 193, 161);
+    background-color: rgba(104,151,165,255);
+    /* background-color: rgb(224, 193, 161); */
+    background-image: url(../img_site/fundo_marrom_2.png);
+    background-size: 92%;
 }
