@@ -6,9 +6,22 @@ font-family: 'Roboto Condensed', sans-serif;
     border-radius:10%;
     background-size: contain;
 }
-
-h2{
-    background-color: rgb(190, 204, 204);
+h1{
+    /* background-image: url(../img_site/imagem_chao_fundo.png); */
+}
+.imagem_jogo_inicio{ 
+    width: 30%;
+    height: 30%;
+    margin:0%;
+}
+.imagem_jogo_borda{
+    width: 15%;
+}
+.imagem{
+    display: flex;
+    justify-content: center;    
+    background-color: antiquewhite;
+    font-size: 200;
 }
 .header{
     display: flex;
