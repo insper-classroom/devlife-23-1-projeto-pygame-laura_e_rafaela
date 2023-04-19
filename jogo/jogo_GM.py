@@ -4,30 +4,29 @@ class Player(pygame.sprite.Sprite):
     def __init__(self,window):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
-        self.indice_img=3
-        self.image=pygame.image.load(f'jogo/Assets_jogo/snow_monster/snow_monster_{self.indice_img}_direita.png')
+        self.indice_img=0
+        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png']
+        image=pygame.image.load(self.images_animation[self.indice_img])
+        self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
         self.h=self.image.get_height()
         self.radius=(self.h)/2
         self.last_updated=0
         self.rect=self.image.get_rect()
         self.rect.x=0
-        self.rect.y=self.window.get_height()
+        self.rect.y=540
 
     def update(self):
-        for evento in pygame.event.get():
-            if evento.type==pygame.QUIT:
-                return -1 
-            elif evento.type==pygame.KEYDOWN:
-                if evento.key==pygame.K_RIGHT:
-                    
+        self.indice_img=(self.indice_img+1)%len(self.images_animation)
+
     def desenha(self):
-        
+        self.window.blit(self.image,self.rect)
+        pygame.display.update()
 
 class Biscoitos(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-
+        pass
 
 class Nuvem(pygame.sprite.Sprite):
     def __init__(self):
@@ -40,9 +39,24 @@ class Monstro(pygame.sprite.Sprite):
     
 
 class Tela_Jogo():
+    
     def __init__(self,window):
         self.window=window
-        self.
+        fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png')
+        self.fundo=pygame.transform.scale(fundo, (800, 750))
+        self.player=Player(self.window)
+
+    def atualiza(self):
+        for ev in pygame.event.get():
+            if ev.type==pygame.QUIT:
+                return -1 
+            self.player.update()
+        return self 
+    
+    def desenha(self):
+        self.window.blit(self.fundo,(0,0))
+        self.player.desenha()
+        pygame.display.update()
 
 
 class Jogo: 
@@ -61,3 +75,8 @@ class Jogo:
             if self.tela_atual==-1:
                 rodando=False
             else:self.tela_atual.desenha()
+
+
+
+if __name__ == '__main__':
+    Jogo().game_loop()   
