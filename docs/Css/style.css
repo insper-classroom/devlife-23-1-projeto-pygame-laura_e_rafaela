@@ -2,9 +2,14 @@
 h1,h2,h3{
     font-weight: 400;
     font-family: 'Russo One', sans-serif;
-    color:rgb(52, 81, 91)
+    color:rgb(52, 81, 91);
+    background-color: antiquewhite;
+    border-radius:10%;
+    background-size: contain;
 }
-
+h1{
+    background-image: url(/Users/laurapontiroli/github-classroom/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela/docs/img_site/imagem_jogo_tema.png);
+}
 .imagem_jogo_inicio{ 
     width: 30%;
     height: 30%;
@@ -16,12 +21,16 @@ h1,h2,h3{
 .imagem{
     display: flex;
     justify-content: center;    
+    background-color: antiquewhite;
+    background-image: url(/Users/laurapontiroli/github-classroom/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela/docs/img_site/imagem_jogo_tema.png);
+    font-size: 200;
 }
+
 .header{
     display: flex;
     justify-content: center;
 }
 
 body{
-    background-color: rgb(145, 108, 68);
+    background-color: rgb(224, 193, 161);
 }
