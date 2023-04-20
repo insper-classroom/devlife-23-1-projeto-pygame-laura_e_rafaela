@@ -11,13 +11,9 @@ class Tela_Jogo():
         self.monstro=Monstro(self.window)
 
     def atualiza(self):
-        for ev in pygame.event.get():
-            if ev.type==pygame.QUIT:
-                return -1 
-            if ev.type==pygame.KEYDOWN:
-                self.player.update()
-                self.monstro.update()
-        return self 
+        if self.player.update() == -1 or self.monstro.update() == -1:
+            return -1
+        return self  
     
     def desenha(self):
         self.window.blit(self.fundo,(0,0))
