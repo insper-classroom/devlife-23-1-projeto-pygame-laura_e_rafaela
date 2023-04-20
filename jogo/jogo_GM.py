@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
-        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png']
+        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/ginggerman_2.jpeg']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
@@ -18,7 +18,8 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.indice_img=(self.indice_img+1)%len(self.images_animation)
-
+        image=pygame.image.load(self.images_animation[self.indice_img])
+        self.image=pygame.transform.scale(image, (60,60))
     def desenha(self):
         self.window.blit(self.image,self.rect)
         pygame.display.update()
@@ -50,6 +51,7 @@ class Tela_Jogo():
         for ev in pygame.event.get():
             if ev.type==pygame.QUIT:
                 return -1 
+            
             self.player.update()
         return self 
     
