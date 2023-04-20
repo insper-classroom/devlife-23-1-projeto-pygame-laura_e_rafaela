@@ -12,17 +12,21 @@ class Tela_Jogo():
         # self.monstro=Monstro(self.window)
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
+        self.andando=False
         
 
     def atualiza(self):
-        if self.player.update() == -1:
+        player=self.player.update()
+        if player == -1:
             return -1
+        self.andando=player
         return self  
     
     def desenha(self):
-        if abs(self.scroll)>self.fundo.get_width():
-            self.scroll=0
-        else: self.scroll-=5
+        if self.andando:
+            if abs(self.scroll)>self.fundo.get_width():
+                self.scroll=0
+            else: self.scroll-=10
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
         self.player.desenha()
