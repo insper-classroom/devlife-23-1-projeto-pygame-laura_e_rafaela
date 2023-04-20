@@ -8,17 +8,20 @@ class Tela_Jogo():
         fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png')
         self.fundo=pygame.transform.scale(fundo, (800, 750))
         self.player=Player(self.window)
+        self.monstro=Monstro(self.window)
 
     def atualiza(self):
         for ev in pygame.event.get():
             if ev.type==pygame.QUIT:
                 return -1 
-            
-            self.player.update()
+            if ev.type==pygame.KEYDOWN:
+                self.player.update()
+                self.monstro.update()
         return self 
     
     def desenha(self):
         self.window.blit(self.fundo,(0,0))
+        self.monstro.desenha()
         self.player.desenha()
         pygame.display.update()
 
