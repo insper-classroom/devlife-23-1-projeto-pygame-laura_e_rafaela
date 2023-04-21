@@ -1,6 +1,7 @@
 import pygame 
 from assets_jogo import * 
 import math
+import random
 
 class Tela_Jogo():
     
@@ -9,14 +10,19 @@ class Tela_Jogo():
         fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png'). convert()
         self.fundo=pygame.transform.scale(fundo, (800, 750))
         self.player=Player(self.window)
-        # self.monstro=Monstro(self.window)
+        self.clock=pygame.time.Clock()
+        self.FPS=10
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
         self.andando=False
+        self.all_biscoitos=pygame.sprite.Group()
+        for i in range(10):
+            y=random.randint(400,560)
+            self.all_biscoitos.add(Biscoito(self.window,y))
         
-
     def atualiza(self):
-        player=self.player.update()
+        self.clock.tick(self.FPS)
+        player=self.player.update(self.all_biscoitos)
         if player == -1:
             return -1
         self.andando=player
@@ -26,9 +32,11 @@ class Tela_Jogo():
         if self.andando:
             if abs(self.scroll)>self.fundo.get_width():
                 self.scroll=0
-            else: self.scroll-=10
+            else: 
+                self.scroll-=10
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
+        self.all_biscoitos.draw(self.window)
         self.player.desenha()
         pygame.display.update()
 

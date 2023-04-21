@@ -1,4 +1,5 @@
 import pygame 
+import random
 
 class Player(pygame.sprite.Sprite):
 
@@ -16,11 +17,9 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.x=50
         self.rect.y=540
-        self.clock=pygame.time.Clock()
-        self.FPS=10
 
-    def update(self):
-        self.clock.tick(self.FPS)
+
+    def update(self,all_biscoitos):
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1 
@@ -29,23 +28,51 @@ class Player(pygame.sprite.Sprite):
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (60,60))
+            self.pegou_biscoito(all_biscoitos)
+            all_biscoitos.update(True)
             return True 
+        all_biscoitos.update(False)
         return False
             
     def desenha(self):
         self.window.blit(self.image,self.rect)
         pygame.display.update()
 
-class Biscoitos(pygame.sprite.Sprite):
+    def pegou_biscoito(self,biscoitos):
+        for biscoito in biscoitos:
+            pegou=pygame.sprite.collide_circle(self,biscoito)
+            if pegou:
+                biscoito.kill()
+                return True 
+        return False
 
-    def __init__(self):
+class Biscoito(pygame.sprite.Sprite):
+
+    def __init__(self, window,y):
         pygame.sprite.Sprite.__init__(self)
-        pass
+        self.window=window
+        image=pygame.image.load('jogo/Assets_jogo/biscoitos/biscoito_redondo.png')
+        self.image=pygame.transform.scale(image, (30,30))
+        self.h=self.image.get_height()
+        self.radius=(self.h)/2
+        self.last_updated=0
+        self.rect=self.image.get_rect()
+        self.rect.x=1300
+        self.rect.y=y
+        self.last_updated=0
+        self.vel=-100
 
-class Nuvem(pygame.sprite.Sprite):
+    def update(self,mexendo,):
+        v1=pygame.time.get_ticks()
+        if mexendo:
+            delta_t=(v1-self.last_updated)/1000
+            self.last_updated=v1 
+            self.rect.x=self.rect.x+(self.vel*delta_t)
+        self.last_updated=v1
+        
 
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+    def draw(self):
+        self.window.blit(self.image,self.rect)
 
 
 class Monstro(pygame.sprite.Sprite):
