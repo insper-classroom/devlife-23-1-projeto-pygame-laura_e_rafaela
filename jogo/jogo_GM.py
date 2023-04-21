@@ -26,7 +26,6 @@ class Tela_Jogo():
         self.clock.tick(self.FPS)
         biscoitos = self.all_biscoitos.sprites()
         for biscoito in biscoitos:
-            print(biscoito.rect.x)
             if biscoito.rect.x < 50:
                 for i in range(10):
                     y=random.randint(250,410)
