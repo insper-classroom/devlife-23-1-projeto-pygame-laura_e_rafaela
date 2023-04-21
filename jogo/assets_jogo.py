@@ -3,7 +3,7 @@ import random
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self,window):
+    def __init__(self,window, tela_jogo):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
@@ -16,7 +16,12 @@ class Player(pygame.sprite.Sprite):
         self.last_updated=0
         self.rect=self.image.get_rect()
         self.rect.x=50
-        self.rect.y=540
+        self.rect.y=420
+        self.pulou = False
+        self.acelaracao = 1
+        self.vel_y = 400
+        self.tela_jogo = tela_jogo
+
 
 
     def update(self,all_biscoitos):
@@ -31,6 +36,15 @@ class Player(pygame.sprite.Sprite):
             self.pegou_biscoito(all_biscoitos)
             all_biscoitos.update(True)
             return True 
+        if tecla[pygame.K_SPACE] and not self.pulou:
+            self.rect.y -= 100
+            self.pulou = True
+        elif self.pulou:
+            prox_posicao = self.vel_y + self.acelaracao * self.tela_jogo.clock
+            prox_vel = 440 + self.acelaracao * self.tela_jogo.clock
+            
+
+        
         all_biscoitos.update(False)
         return False
             
@@ -48,7 +62,7 @@ class Player(pygame.sprite.Sprite):
 
 class Biscoito(pygame.sprite.Sprite):
 
-    def __init__(self, window,y):
+    def __init__(self, window,y, x):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         image=pygame.image.load('jogo/Assets_jogo/biscoitos/biscoito_redondo.png')
@@ -57,7 +71,7 @@ class Biscoito(pygame.sprite.Sprite):
         self.radius=(self.h)/2
         self.last_updated=0
         self.rect=self.image.get_rect()
-        self.rect.x=1300
+        self.rect.x=500 + x
         self.rect.y=y
         self.last_updated=0
         self.vel=-100

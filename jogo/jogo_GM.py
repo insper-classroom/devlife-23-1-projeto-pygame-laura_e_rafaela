@@ -8,20 +8,32 @@ class Tela_Jogo():
     def __init__(self,window):
         self.window=window
         fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png'). convert()
-        self.fundo=pygame.transform.scale(fundo, (800, 750))
-        self.player=Player(self.window)
+        self.fundo=pygame.transform.scale(fundo, (800, 600))
         self.clock=pygame.time.Clock()
         self.FPS=10
+        self.player=Player(self.window, self)
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
         self.andando=False
+        self.biscoito_dx = 0
         self.all_biscoitos=pygame.sprite.Group()
         for i in range(10):
-            y=random.randint(400,560)
-            self.all_biscoitos.add(Biscoito(self.window,y))
+            y=random.randint(250,410)
+            x = random.randint(self.biscoito_dx,1000 + self.biscoito_dx)
+            self.all_biscoitos.add(Biscoito(self.window,y,x))
         
     def atualiza(self):
         self.clock.tick(self.FPS)
+        biscoitos = self.all_biscoitos.sprites()
+        for biscoito in biscoitos:
+            print(biscoito.rect.x)
+            if biscoito.rect.x < 50:
+                for i in range(10):
+                    y=random.randint(250,410)
+                    x = random.randint(self.biscoito_dx,1000 + self.biscoito_dx)
+                    self.all_biscoitos.add(Biscoito(self.window,y,x))
+                self.biscoito_dx += 1000
+                break
         player=self.player.update(self.all_biscoitos)
         if player == -1:
             return -1
@@ -46,7 +58,7 @@ class Jogo:
         pygame.init()
         pygame.display.set_caption('Cookie Rush')
         self.largura_tela=1300
-        self.altura_tela=750
+        self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
         self.tela_atual=Tela_Jogo(self.window)
         
