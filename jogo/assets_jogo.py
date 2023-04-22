@@ -137,3 +137,14 @@ class Monstro(pygame.sprite.Sprite):
         
     def desenha(self):
         self.window.blit(self.image,self.rect)
+
+class Plataforma (pygame.sprite.Sprite):
+    def __init__(self, x, y, width, tela_jogo):
+        image = pygame.image.load("jogo/Assets_jogo/snow_ground.png")
+        self.image = pygame.transform.scale(image, (100,100))
+        self.rect = pygame.Rect(x,y,100,100)
+        self.width = width
+        self.tela_jogo = tela_jogo
+    def desenha(self):
+        for i in range(self.width):
+            self.tela_jogo.window.blit(self.image, (self.rect.x + (self.rect.x * i), self.rect.y))
