@@ -23,6 +23,7 @@ class Tela_Jogo():
             self.all_biscoitos.add(Biscoito(self.window,y,x))
         
     def atualiza(self):
+    
         self.clock.tick(self.FPS)
         biscoitos = self.all_biscoitos.sprites()
         for biscoito in biscoitos:

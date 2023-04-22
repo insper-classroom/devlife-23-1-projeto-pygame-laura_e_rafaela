@@ -17,17 +17,39 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.x=50
         self.rect.y=420
-        self.pulou = False
+        self.pulo = False
         self.acelaracao = 1
         self.vel_y = 400
+        self.ace = 1
         self.tela_jogo = tela_jogo
+        self.t0 = 0
+
 
 
 
     def update(self,all_biscoitos):
+        
+        tempo_frame = pygame.time.get_ticks()
+        dt = (tempo_frame - self.t0)/1000
+        self.t0 = tempo_frame
+        self.vel_y += self.ace * dt
+        self.rect.y += self.vel_y * dt
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1 
+            if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE:
+                self.pulo = True
+        if self.rect.y >=420 and not self.pulo:
+
+            self.vel_y = 0
+
+        if self.rect.y >= 420 and self.pulo:
+ 
+            self.vel_y = -400
+            self.pulo = False
+        
+        if self.rect.y <= 340:
+            self.vel_y = 400
         tecla = pygame.key.get_pressed()
         if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]:
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
@@ -36,12 +58,8 @@ class Player(pygame.sprite.Sprite):
             self.pegou_biscoito(all_biscoitos)
             all_biscoitos.update(True)
             return True 
-        if tecla[pygame.K_SPACE] and not self.pulou:
-            self.rect.y -= 100
-            self.pulou = True
-        elif self.pulou:
-            prox_posicao = self.vel_y + self.acelaracao * self.tela_jogo.clock
-            prox_vel = 440 + self.acelaracao * self.tela_jogo.clock
+        
+            
             
 
         
