@@ -19,6 +19,8 @@ class Tela_Jogo():
         self.plat_dx=0
         self.all_biscoitos=pygame.sprite.Group()
         self.all_plataformas = pygame.sprite.Group()
+        self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
+        self.musica_tocando=False
         for i in range(10):
             y=random.randint(250,410)
             x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
@@ -29,6 +31,9 @@ class Tela_Jogo():
             self.all_plataformas.add(Plataforma(x,width,self.window))
         
     def atualiza(self):
+        if not(self.musica_tocando):
+            self.sound.play()
+            self.musica_tocando=True
         self.clock.tick(self.FPS)
         self.biscoito_dx += 1500
         for i in range(10):
