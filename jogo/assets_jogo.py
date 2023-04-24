@@ -18,11 +18,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.y=420
         self.pulo = False
         self.vel_y = 0
-        self.ace = 3
+        self.ace = 1
         self.tela_jogo = tela_jogo
         self.t0 = 0
 
-    def update(self,all_biscoitos):
+    def update(self,all_biscoitos,all_plataformas):
         tempo_frame = pygame.time.get_ticks()
         dt = (tempo_frame - self.t0)/1000
         self.t0 = tempo_frame
@@ -41,14 +41,16 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y <= 250:
             self.vel_y = 400
         tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]:
-            self.indice_img=(self.indice_img+1)%len(self.images_animation)
+        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]: 
+            self.indice_img=(self.indice_img+1)%2
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (60,60))
             self.pegou_biscoito(all_biscoitos)
             all_biscoitos.update(True)
+            all_plataformas.update(True)
             return True 
         all_biscoitos.update(False)
+        all_plataformas.update(False)
         return False
             
     def desenha(self):
@@ -77,9 +79,9 @@ class Biscoito(pygame.sprite.Sprite):
         self.rect.x=x
         self.rect.y=y
         self.last_updated=0
-        self.vel=-100
+        self.vel=-120
 
-    def update(self,mexendo,):
+    def update(self,mexendo):
         v1=pygame.time.get_ticks()
         if mexendo:
             delta_t=(v1-self.last_updated)/1000
@@ -87,7 +89,6 @@ class Biscoito(pygame.sprite.Sprite):
             self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
         
-
     def draw(self):
         self.window.blit(self.image,self.rect)
 
@@ -124,15 +125,25 @@ class Monstro(pygame.sprite.Sprite):
         self.window.blit(self.image,self.rect)
 
 class Plataforma (pygame.sprite.Sprite):
-    def __init__(self, x, y, width, tela_jogo):
+    def __init__(self, x, width,window):
         pygame.sprite.Sprite.__init__(self)
         image = pygame.image.load("jogo/Assets_jogo/snow_ground.png")
         self.image = pygame.transform.scale(image, (80,60))
         self.rect =self.image.get_rect()
         self.rect.x=x
-        self.rect.y=y
+        self.rect.y=300
         self.width = width
-        self.tela_jogo = tela_jogo
-    def desenha(self):
-        for i in range(self.width):
-            self.tela_jogo.window.blit(self.image, (self.rect.x + (self.rect.x * i), self.rect.y))
+        self.window=window
+        self.last_updated=0
+        self.vel=-120
+
+    def draw(self):
+        self.window.blit(self.image, self.rect.y)
+
+    def update(self,mexendo):
+        v1=pygame.time.get_ticks()
+        if mexendo:
+            delta_t=(v1-self.last_updated)/1000
+            self.last_updated=v1 
+            self.rect.x=self.rect.x+(self.vel*delta_t)
+        self.last_updated=v1
