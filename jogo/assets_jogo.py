@@ -1,5 +1,4 @@
 import pygame 
-import random
 
 class Player(pygame.sprite.Sprite):
 
@@ -18,17 +17,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.x=50
         self.rect.y=420
         self.pulo = False
-        self.acelaracao = 1
-        self.vel_y = 400
-        self.ace = 1
+        self.vel_y = 0
+        self.ace = 3
         self.tela_jogo = tela_jogo
         self.t0 = 0
 
-
-
-
     def update(self,all_biscoitos):
-        
         tempo_frame = pygame.time.get_ticks()
         dt = (tempo_frame - self.t0)/1000
         self.t0 = tempo_frame
@@ -39,16 +33,12 @@ class Player(pygame.sprite.Sprite):
                 return -1 
             if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE:
                 self.pulo = True
-        if self.rect.y >=420 and not self.pulo:
-
-            self.vel_y = 0
-
+        if self.rect.y >=420:
+            self.rect.y=420
         if self.rect.y >= 420 and self.pulo:
- 
-            self.vel_y = -400
+            self.vel_y=-400
             self.pulo = False
-        
-        if self.rect.y <= 340:
+        if self.rect.y <= 250:
             self.vel_y = 400
         tecla = pygame.key.get_pressed()
         if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]:
@@ -58,11 +48,6 @@ class Player(pygame.sprite.Sprite):
             self.pegou_biscoito(all_biscoitos)
             all_biscoitos.update(True)
             return True 
-        
-            
-            
-
-        
         all_biscoitos.update(False)
         return False
             
@@ -89,7 +74,7 @@ class Biscoito(pygame.sprite.Sprite):
         self.radius=(self.h)/2
         self.last_updated=0
         self.rect=self.image.get_rect()
-        self.rect.x=500 + x
+        self.rect.x=x
         self.rect.y=y
         self.last_updated=0
         self.vel=-100
@@ -140,9 +125,12 @@ class Monstro(pygame.sprite.Sprite):
 
 class Plataforma (pygame.sprite.Sprite):
     def __init__(self, x, y, width, tela_jogo):
+        pygame.sprite.Sprite.__init__(self)
         image = pygame.image.load("jogo/Assets_jogo/snow_ground.png")
-        self.image = pygame.transform.scale(image, (100,100))
-        self.rect = pygame.Rect(x,y,100,100)
+        self.image = pygame.transform.scale(image, (80,60))
+        self.rect =self.image.get_rect()
+        self.rect.x=x
+        self.rect.y=y
         self.width = width
         self.tela_jogo = tela_jogo
     def desenha(self):

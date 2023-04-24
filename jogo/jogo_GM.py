@@ -17,27 +17,26 @@ class Tela_Jogo():
         self.andando=False
         self.biscoito_dx = 0
         self.all_biscoitos=pygame.sprite.Group()
-        self.all_plataformas = []
+        self.all_plataformas = pygame.sprite.Group()
         for i in range(10):
             y=random.randint(250,410)
-            x = random.randint(self.biscoito_dx,1000 + self.biscoito_dx)
+            x = random.randint(self.biscoito_dx+500,1300 + self.biscoito_dx)
             self.all_biscoitos.add(Biscoito(self.window,y,x))
         for i in range(4):
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
-            self.all_plataformas.append(Plataforma(x,100,width, self))
+            self.all_plataformas.add(Plataforma(x,300,width, self))
         
     def atualiza(self):
-    
         self.clock.tick(self.FPS)
-        biscoitos = self.all_biscoitos.sprites()
+        biscoitos = self.all_biscoitos
         for biscoito in biscoitos:
             if biscoito.rect.x < 50:
+                self.biscoito_dx += 1300
                 for i in range(10):
                     y=random.randint(250,410)
-                    x = random.randint(self.biscoito_dx,1000 + self.biscoito_dx)
+                    x = random.randint(self.biscoito_dx+500,1300 + self.biscoito_dx)
                     self.all_biscoitos.add(Biscoito(self.window,y,x))
-                self.biscoito_dx += 1000
                 break
         player=self.player.update(self.all_biscoitos)
         if player == -1:
@@ -50,7 +49,7 @@ class Tela_Jogo():
             if abs(self.scroll)>self.fundo.get_width():
                 self.scroll=0
             else: 
-                self.scroll-=10
+                self.scroll-=15
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
         self.all_biscoitos.draw(self.window)
