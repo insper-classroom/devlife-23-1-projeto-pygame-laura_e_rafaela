@@ -3,18 +3,22 @@ h1,h2,h3{
     font-weight: 400;
     font-family: 'Roboto Condensed', sans-serif;
     color:rgb(184, 56, 38);
-    border-radius:10%;
     background-size: contain;
-
     margin-top: 1%;
     margin-bottom: 1;
 }
 h3{
     margin-left: 2%;
+    background-color: aliceblue;
+    border-radius: 15px;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
 }
 
 h2{
     font-size: 180%;
+    text-decoration: underline;
+    text-decoration-color: aliceblue;
 }
 
 h1,h2{
@@ -35,16 +39,12 @@ p{
     /* background-color:rgb(90, 114, 122); */
     border-radius: 15px;
     padding: 1%;
-    margin-right: 3%;
-    margin-left: 3%;
+    margin-right: 2%;
+    margin-left: 2%;
 }
-/* body{
-    background-image: url(../img_site/fundo_textura.png);
-    
-} */
 
 body{
-    background-image: url("C:/trabalho_pygame_dupla/site_snow.png");
+    background-image: url(../img_site/site_snow.png);
     
 }
 
@@ -52,6 +52,7 @@ body{
     display: flex;
     justify-content: center;
     margin-bottom: 3%;
+    margin-top: 3%;
 }
 .container {
     display: flex;
@@ -61,26 +62,36 @@ body{
     padding-right: 10%;
 }
 
-#mostrar{
-    display: none;
-  }
-  
-#passar_mouse:hover #mostrar{
-    display:block;
-    }
-
 .video_jogo{
-    display: flex;
-    justify-content: center;
+    display: block;
+    margin:0 auto;
     background-size: cover;
-    background-color:rgb(90, 114, 122);
+    background-color:rgba(184, 55, 38, 0.859);
     border-radius: 15px;
     padding: 1%;
+   
 
 }
 
+
+.dowload_zip{
+    text-decoration-color: white;
+    background-size: cover;
+    background-color:rgba(184, 55, 38, 0.859);
+    border-radius: 15px;
+    padding: 1%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: 10%;
+
+}
+
+a.dowload_zip:link{
+    color: white;
+}
+
 footer{
-    background-color: rgb(213, 194, 169);
+    background-color: rgb(109, 191, 214);
     bottom:0;
     position: fixed;
     width: 110%;
