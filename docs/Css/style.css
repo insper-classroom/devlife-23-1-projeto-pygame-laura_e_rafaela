@@ -2,9 +2,10 @@
 h1,h2,h3{
     font-weight: 400;
     font-family: 'Roboto Condensed', sans-serif;
-    color:rgb(52, 81, 91);
+    color:rgb(184, 56, 38);
     border-radius:10%;
     background-size: contain;
+
     margin-top: 1%;
     margin-bottom: 1;
 }
@@ -30,14 +31,20 @@ p{
     font-family: 'Kanit', sans-serif;
     color: white;
     background-size: cover;
-    background-color:rgb(90, 114, 122);
+    background-color:rgba(184, 55, 38, 0.859);
+    /* background-color:rgb(90, 114, 122); */
     border-radius: 15px;
     padding: 1%;
     margin-right: 3%;
     margin-left: 3%;
 }
-body{
+/* body{
     background-image: url(../img_site/fundo_textura.png);
+    
+} */
+
+body{
+    background-image: url("C:/trabalho_pygame_dupla/site_snow.png");
     
 }
 
@@ -61,6 +68,16 @@ body{
 #passar_mouse:hover #mostrar{
     display:block;
     }
+
+.video_jogo{
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-color:rgb(90, 114, 122);
+    border-radius: 15px;
+    padding: 1%;
+
+}
 
 footer{
     background-color: rgb(213, 194, 169);
