@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
-        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png']
+        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.ace = 1
         self.tela_jogo = tela_jogo
         self.t0 = 0
+        self.chao=420
 
     def update(self,all_biscoitos,all_plataformas):
         tempo_frame = pygame.time.get_ticks()
@@ -33,15 +34,28 @@ class Player(pygame.sprite.Sprite):
                 return -1 
             if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE:
                 self.pulo = True
-        if self.rect.y >=420:
-            self.rect.y=420
-        if self.rect.y >= 420 and self.pulo:
-            self.vel_y=-400
-            self.pulo = False
-        if self.rect.y <= 250:
-            self.vel_y = 400
+                self.vel_y=-400
+                image=pygame.image.load(self.images_animation[2])
+                self.image=pygame.transform.scale(image, (60,60))
+
+        #barreira pro boneco não atravessar o chão
+        if self.rect.y >=self.chao:
+            self.rect.y=self.chao
+        #inverter a velocidade quando ele chega no max do pulo
+        if self.rect.y <= 200:
+            self.vel_y *=-1
+            self.pulo=False
+        for plataforma in all_plataformas:
+            if pygame.sprite.collide_mask(self,plataforma):
+                self.chao=248
+        #vê se ele está pulando
+        if self.rect.y >= self.chao and not(self.pulo):
+            image=pygame.image.load(self.images_animation[self.indice_img])
+            self.image=pygame.transform.scale(image, (60,60))
+        self.pegou_biscoito(all_biscoitos)
+
         tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]: 
+        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT] and not(self.pulo): 
             self.indice_img=(self.indice_img+1)%2
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (60,60))
