@@ -63,7 +63,7 @@ class Tela_Jogo():
 class Jogo: 
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption('Cookie Rush')
+        pygame.display.set_caption('Cookie Chase')
         self.largura_tela=1300
         self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
