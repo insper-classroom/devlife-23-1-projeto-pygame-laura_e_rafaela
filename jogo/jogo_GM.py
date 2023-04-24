@@ -21,30 +21,40 @@ class Tela_Jogo():
         self.all_plataformas = pygame.sprite.Group()
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
         self.musica_tocando=False
-        for i in range(10):
-            y=random.randint(250,410)
-            x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
-            self.all_biscoitos.add(Biscoito(self.window,y,x))
         for i in range(6):
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
             self.all_plataformas.add(Plataforma(x,width,self.window))
-        
+        for i in range(10):
+            y=random.randint(250,410)
+            x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+            biscoito=Biscoito(self.window,y,x)
+            while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
+                y=random.randint(250,410)
+                x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+                biscoito=Biscoito(self.window,y,x)
+            self.all_biscoitos.add(biscoito)
+
     def atualiza(self):
         if not(self.musica_tocando):
             self.sound.play()
             self.musica_tocando=True
         self.clock.tick(self.FPS)
-        self.biscoito_dx += 1500
-        for i in range(10):
-            y=random.randint(250,410)
-            x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
-            self.all_biscoitos.add(Biscoito(self.window,y,x))
         self.plat_dx+=1000
         for i in range(10):
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
             self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
+        self.biscoito_dx += 1500
+        for i in range(10):
+            y=random.randint(250,410)
+            x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+            biscoito=Biscoito(self.window,y,x)
+            while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
+                y=random.randint(250,410)
+                x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+                biscoito=Biscoito(self.window,y,x)
+            self.all_biscoitos.add(biscoito)
         player=self.player.update(self.all_biscoitos,self.all_plataformas)
         if player == -1:
             return -1
