@@ -57,7 +57,7 @@ class Tela_Jogo():
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
             self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
-        self.biscoito_dx += 1500
+        self.biscoito_dx += 1000
         for i in range(10):
             y=random.randint(250,410)
             while not(280>y or y>370):
@@ -70,7 +70,7 @@ class Tela_Jogo():
                 biscoito=Biscoito(self.window,y,x)
             self.all_biscoitos.add(biscoito)
         quant_monst = []
-        self.monstro_dx += 1500
+        self.monstro_dx += 100
         for i in range(4):
             quant_monst.append(random.choice([True, False]))
         for i in quant_monst:
@@ -78,9 +78,7 @@ class Tela_Jogo():
                 x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
                 monstro = Monstro(self.window, x)
                 self.all_monstros.add(monstro)
-        player=self.player.update(self.all_biscoitos,self.all_plataformas)
-    
-        self.all_monstros.update(self.player, True)
+        player=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros)
         if player == -1:
             return -1
         self.andando=player

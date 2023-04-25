@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.cookie=pygame.transform.scale(cookie,(20,20))
         self.cookies_coletados=0
 
-    def update(self,all_biscoitos,all_plataformas):
+    def update(self,all_biscoitos,all_plataformas,all_monstros):
         tempo_frame = pygame.time.get_ticks()
         dt = (tempo_frame - self.t0)/1000
         self.t0 = tempo_frame
@@ -73,6 +73,8 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update(True)
         all_plataformas.update(True)
+        all_monstros.update(self,True)
+
         return True
             
     def desenha(self):
@@ -142,9 +144,6 @@ class Monstro(pygame.sprite.Sprite):
         self.vel=-120
 
     def update(self, player, mexendo):
-        for evento in pygame.event.get():
-            if evento.type==pygame.QUIT:
-                return -1 
         if pygame.sprite.collide_rect(player,self):
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
