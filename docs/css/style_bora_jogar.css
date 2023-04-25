@@ -27,7 +27,6 @@ a.link_topo:link, a.link_topo:visited{
     align-items: center;
 }
 
-
 .vl{
     border-left: 3px solid aliceblue;
     height: 50px;
@@ -75,6 +74,10 @@ a.link_topo:link, a.link_topo:visited{
     border-radius: 15px;
 }
 
+a.image_interrogation:hover,a.image_dowload:hover{
+    background-color: rgba(184, 55, 38, 0.575);
+}
+
 .cards_info{
     margin-top: 50px;
     margin-right: 50px;
@@ -90,8 +93,8 @@ a.link_cards:link, a.link_cards:visited{
     background-color: rgba(184, 55, 38, 0.82);
     border-radius: 15px;
     padding: 0px 10px;
-    margin-right: 100px;
-    margin-left: 100PX;
+    margin-right: 110px;
+    margin-left: 70PX;
 }
 
 footer{

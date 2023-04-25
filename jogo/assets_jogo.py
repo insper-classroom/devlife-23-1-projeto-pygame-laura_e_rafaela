@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
-        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png']
+        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png','jogo/Assets_jogo/Gingerman/gingerman_4.png']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
@@ -51,19 +51,21 @@ class Player(pygame.sprite.Sprite):
             self.vel=0
         self.pegou_biscoito(all_biscoitos)
 
-        tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]: 
-            if not(self.pulo):
-                self.indice_img=(self.indice_img+1)%2
-                image=pygame.image.load(self.images_animation[self.indice_img])
-                self.image=pygame.transform.scale(image, (60,60))
-            self.pegou_biscoito(all_biscoitos)
-            all_biscoitos.update(True)
-            all_plataformas.update(True)
-            return True 
-        all_biscoitos.update(False)
-        all_plataformas.update(False)
-        return False
+        if not(self.pulo):
+            self.indice_img=(self.indice_img+1)%2
+            image=pygame.image.load(self.images_animation[self.indice_img])
+            self.image=pygame.transform.scale(image, (60,60))
+        
+        elif self.vel_y<0:
+            image=pygame.image.load(self.images_animation[2])
+            self.image=pygame.transform.scale(image, (60,60))
+
+        elif self.vel_y>0:
+            image=pygame.image.load(self.images_animation[3])
+            self.image=pygame.transform.scale(image, (60,60))
+        all_biscoitos.update(True)
+        all_plataformas.update(True)
+        return True
             
     def desenha(self):
         self.window.blit(self.image,self.rect)

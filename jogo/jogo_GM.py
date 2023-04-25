@@ -39,7 +39,7 @@ class Tela_Jogo():
 
     def atualiza(self):
         if not(self.musica_tocando):
-            self.sound.play()
+            self.sound.play(-1)
             self.musica_tocando=True
         self.clock.tick(self.FPS)
         self.plat_dx+=1000

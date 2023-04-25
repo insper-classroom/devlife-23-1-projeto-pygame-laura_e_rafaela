@@ -75,6 +75,11 @@ a.link_topo:link, a.link_topo:visited{
     border-radius: 15px;
 }
 
+
+.image_controler,a.image_book:hover,a.image_yt:hover{
+    background-color:rgba(184, 55, 38, 0.575);
+}
+
 .cards_info{
     margin-top: 50px;
     display: flex;
