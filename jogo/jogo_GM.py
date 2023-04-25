@@ -78,23 +78,13 @@ class Tela_Jogo():
         self.player.desenha()
         pygame.display.update()
 
-def checa_colisao(ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
-    if (
-        ret_x <= p_x and 
-        p_x <= ret_x + ret_largura and 
-        ret_y <= p_y and 
-        p_y <= ret_y + ret_altura
-    ):
-        return True
-    else:
-        return False
 
 class Tela_Inicial():
-    def __init__(self, jogo):
+    def __init__(self,window):
         pygame.init()
-        self.window=jogo.window
-        self.largura_tela = jogo.largura_tela
-        self.altura_tela = jogo.altura_tela
+        self.window=window
+        self.largura_tela =1300
+        self.altura_tela =600
         fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png'). convert()
         self.fundo=pygame.transform.scale(fundo, (800, 600))
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
@@ -147,15 +137,15 @@ class Tela_Inicial():
     def atualiza(self):
         self.clock.tick(self.FPS)
         pos_mouse = pygame.mouse.get_pos()
-        if checa_colisao(self.fundo_jogar.x, self.fundo_jogar.y, self.fundo_jogar.width, self.fundo_jogar.height,pos_mouse[0],pos_mouse[1]):
+        if self.checa_colisao(self.fundo_jogar.x, self.fundo_jogar.y, self.fundo_jogar.width, self.fundo_jogar.height,pos_mouse[0],pos_mouse[1]):
             self.jogar = True
         else:
             self.jogar= False
-        if checa_colisao (self.fundo_regras.x, self.fundo_regras.y, self.fundo_regras.width, self.fundo_regras.height,pos_mouse[0],pos_mouse[1]):
+        if self.checa_colisao (self.fundo_regras.x, self.fundo_regras.y, self.fundo_regras.width, self.fundo_regras.height,pos_mouse[0],pos_mouse[1]):
             self.regras = True
         else:
             self.regras = False
-        if checa_colisao (self.fundo_info.x, self.fundo_regras.y, self.fundo_info.width, self.fundo_info.height,pos_mouse[0],pos_mouse[1]):
+        if self.checa_colisao (self.fundo_info.x, self.fundo_regras.y, self.fundo_info.width, self.fundo_info.height,pos_mouse[0],pos_mouse[1]):
             self.info = True
         else:
             self.info = False
@@ -170,11 +160,87 @@ class Tela_Inicial():
             elif event.type == pygame.MOUSEBUTTONDOWN and self.info:
                 return Tela_Info(self.window)
             
-
         return self
+    
+    def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
+        if (
+            ret_x <= p_x and 
+            p_x <= ret_x + ret_largura and 
+            ret_y <= p_y and 
+            p_y <= ret_y + ret_altura
+        ):
+            return True
+        else:
+            return False
+        
 
 class Tela_Regras ():
-    pass
+    def __init__(self,window):
+        pygame.init()
+        self.window=window
+        fundo=pygame.image.load('jogo/Assets_jogo/img_fundo_regras.png').convert()
+        self.fundo=pygame.transform.scale(fundo,(1300,600))
+        self.fundo_jogar = pygame.Rect(380,366,185,60)
+        self.fonte_jogar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 60)
+        self.jogar = False
+        self.fundo_voltar = pygame.Rect(670,366,205,60)
+        self.fonte_voltar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 60)
+        self.voltar = False
+        self.FPS=15
+        self.clock=pygame.time.Clock()
+
+    def desenha(self):
+        self.window.blit(self.fundo,(0,0))
+        if self.jogar:
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255),self.fundo_jogar,0,15)
+        else:
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar,0,15)
+        self.window.blit(texto_jogar, (380,360))
+        if self.voltar:
+            texto_voltar = self.fonte_voltar.render("VOLTAR",True,(184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255),self.fundo_voltar,0,15)
+        else:
+            texto_voltar = self.fonte_voltar.render("VOLTAR",True,(240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38),self.fundo_voltar,0,15)
+        self.window.blit(texto_voltar, (670,360))
+        pygame.display.update()
+
+
+    def atualiza(self):
+        self.clock.tick(self.FPS)
+        pos_mouse = pygame.mouse.get_pos()
+        if self.checa_colisao(self.fundo_jogar.x, self.fundo_jogar.y, self.fundo_jogar.width, self.fundo_jogar.height,pos_mouse[0],pos_mouse[1]):
+            self.jogar = True
+        else:
+            self.jogar= False
+        if self.checa_colisao(self.fundo_voltar.x, self.fundo_voltar.y, self.fundo_voltar.width, self.fundo_voltar.height,pos_mouse[0],pos_mouse[1]):
+            self.voltar = True
+        else:
+            self.voltar= False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return -1
+            if event.type == pygame.MOUSEBUTTONDOWN and self.jogar:
+                return Tela_Jogo(self.window)
+            if event.type == pygame.MOUSEBUTTONDOWN and self.voltar:
+                return Tela_Inicial(self.window)
+        return self
+
+    def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
+        if (
+            ret_x <= p_x and 
+            p_x <= ret_x + ret_largura and 
+            ret_y <= p_y and 
+            p_y <= ret_y + ret_altura
+        ):
+            return True
+        else:
+            return False
+
+
 class Tela_Info ():
     pass
 
@@ -185,7 +251,7 @@ class Jogo:
         self.largura_tela=1300
         self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
-        self.tela_atual=Tela_Inicial(self)
+        self.tela_atual=Tela_Inicial(self.window)
 
         
     
@@ -201,3 +267,4 @@ class Jogo:
 
 if __name__ == '__main__':
     Jogo().game_loop()   
+
