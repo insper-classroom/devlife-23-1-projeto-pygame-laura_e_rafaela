@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y=420
         self.pulo = False
         self.vel_y = 0
-        self.ace = 1
+        self.ace = 500
         self.tela_jogo = tela_jogo
         self.t0 = 0
         self.chao=420
@@ -27,31 +27,27 @@ class Player(pygame.sprite.Sprite):
         tempo_frame = pygame.time.get_ticks()
         dt = (tempo_frame - self.t0)/1000
         self.t0 = tempo_frame
-        self.vel_y += self.ace * dt
-        self.rect.y += self.vel_y * dt
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1 
-            if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE:
+            if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE and not self.pulo:
                 self.pulo = True
-                self.vel_y=-400
+                self.vel_y=-450
                 image=pygame.image.load(self.images_animation[2])
                 self.image=pygame.transform.scale(image, (60,60))
         #verifica se ele está na plataforma
-        if self.esta_na_plataforma(all_plataformas):
+        plataforma = self.esta_na_plataforma(all_plataformas)
+        if plataforma:
                 self.chao=248
+        else:
+            self.chao=420 
+        self.vel_y += self.ace * dt
+        self.rect.y += self.vel_y * dt
         #barreira pro boneco não atravessar o chão
-        if self.rect.y >=self.chao:
+        if self.rect.y >= self.chao:
             self.rect.y=self.chao
-        #inverter a velocidade quando ele chega no max do pulo
-        if self.rect.y <=(self.chao-220):
-            self.vel_y *=-1
             self.pulo=False
-        else: self.chao=420
-        #vê se ele está pulando
-        if self.rect.y >= self.chao and not(self.pulo):
-            image=pygame.image.load(self.images_animation[self.indice_img])
-            self.image=pygame.transform.scale(image, (60,60))
+            self.vel=0
         self.pegou_biscoito(all_biscoitos)
 
         tecla = pygame.key.get_pressed()
@@ -73,18 +69,14 @@ class Player(pygame.sprite.Sprite):
         pygame.display.update()
 
     def pegou_biscoito(self,biscoitos):
-        for biscoito in biscoitos:
-            pegou=pygame.sprite.collide_circle(self,biscoito)
-            if pegou:
-                biscoito.kill()
-                return True 
-        return False
+        if pygame.sprite.spritecollideany(self,biscoitos)==None:
+                return False
+        else:
+            pygame.sprite.spritecollideany(self,biscoitos).kill()
+            return True
     
     def esta_na_plataforma(self,all_plataformas):
-        for plataforma in all_plataformas:
-            if pygame.sprite.collide_circle(self,plataforma):
-                return True
-        return False
+        return pygame.sprite.spritecollideany(self,all_plataformas)
 
 class Biscoito(pygame.sprite.Sprite):
 
@@ -150,15 +142,15 @@ class Plataforma (pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         image = pygame.image.load("jogo/Assets_jogo/snow_ground.png")
         self.image = pygame.transform.scale(image, (80,60))
-        self.rect =self.image.get_rect()
-        # self.h=
-        self.rect.x=x
-        self.rect.y=300
+        self.h=60
+        self.x=x
+        self.y=300
         self.width = width
+        self.rect =pygame.Rect(self.x+10,self.y,self.width+40,self.h)
         self.window=window
         self.last_updated=0
         self.vel=-120
-        # self.radius=
+        self.radius=self.h/2
 
     def draw(self):
         self.window.blit(self.image, self.rect.y)
