@@ -139,7 +139,7 @@ class Tela_Inicial():
         else:
             texto_info = self.fonte_info.render("INFO", True, (240, 248, 255))
             pygame.draw.rect(self.window, (184, 55, 38), self.fundo_info, 0, 15)
-        self.window.blit(self.logo, (0,0))
+        self.window.blit(self.logo, (190,40))
         self.window.blit(texto_info, (self.largura_tela//2 + 65,self.altura_tela//2 + 40))
         self.window.blit(texto_regras, (self.largura_tela//2 - 140 ,self.altura_tela//2 + 40))
         self.window.blit(texto_jogar, (self.largura_tela//2-115,self.altura_tela//2-100))
@@ -163,11 +163,20 @@ class Tela_Inicial():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return -1
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN and self.jogar:
                 return Tela_Jogo(self.window)
+            elif event.type == pygame.MOUSEBUTTONDOWN and self.regras:
+                return Tela_Regras(self.window)
+            elif event.type == pygame.MOUSEBUTTONDOWN and self.info:
+                return Tela_Info(self.window)
+            
+
         return self
 
-
+class Tela_Regras ():
+    pass
+class Tela_Info ():
+    pass
 
 class Jogo: 
     def __init__(self):
