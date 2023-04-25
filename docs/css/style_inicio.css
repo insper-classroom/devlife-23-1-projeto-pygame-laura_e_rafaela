@@ -26,13 +26,15 @@ a.link_topo:link, a.link_topo:visited{
     padding-right: 1%;
     display: flex;
     align-items: center;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    
 }
 
 
 a.link_topo:hover{
-    background-color: rgb(188, 76, 61);
+    color: rgba(184, 55, 38, 1);
+    background-color:aliceblue;
+    border-radius: 15px;
+
 }
 
 .vl{
