@@ -22,6 +22,10 @@ class Player(pygame.sprite.Sprite):
         self.tela_jogo = tela_jogo
         self.t0 = 0
         self.chao=420
+        self.fonte=pygame.font.Font('jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/font_jogo/PressStart2P.ttf')
+        cookie=pygame.image.load('jogo/Assets_jogo/biscoitos/biscoito_redondo.png')
+        self.cookie=pygame.transform.scale(cookie,(20,20))
+        self.cookies_coletados=0
 
     def update(self,all_biscoitos,all_plataformas):
         tempo_frame = pygame.time.get_ticks()
@@ -41,18 +45,19 @@ class Player(pygame.sprite.Sprite):
 
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
-        if plataforma:
+        if plataforma and self.vel_y>0:
                 self.chao=248
         else:
             self.chao=420 
         self.vel_y += self.ace * dt
         self.rect.y += self.vel_y * dt
+
         #barreira pro boneco não atravessar o chão
         if self.rect.y >= self.chao:
             self.rect.y=self.chao
             self.pulo=False
             self.vel=0
-        self.pegou_biscoito(all_biscoitos)
+        self.pegou_biscoito(all_biscoitos,self)
 
         if not(self.pulo):
             self.indice_img=(self.indice_img+1)%2
@@ -72,12 +77,18 @@ class Player(pygame.sprite.Sprite):
             
     def desenha(self):
         self.window.blit(self.image,self.rect)
+        desenho_coracoes=self.fonte.render(chr(9829)*self.vidas,True,(255,0,0))
+        self.window.blit(desenho_coracoes,(0,0))
+        desenho_cookies=self.fonte.render(f' x {self.cookies_coletados}',True,(0,0,0))
+        self.window.blit(desenho_cookies,(1202,5))
+        self.window.blit(self.cookie,(1195,1))
         pygame.display.update()
 
-    def pegou_biscoito(self,biscoitos):
+    def pegou_biscoito(self,biscoitos,player):
         if pygame.sprite.spritecollideany(self,biscoitos)==None:
                 return False
         else:
+            player.cookies_coletados+=1
             pygame.sprite.spritecollideany(self,biscoitos).kill()
             return True
     
@@ -148,11 +159,11 @@ class Plataforma (pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         image = pygame.image.load("jogo/Assets_jogo/snow_ground.png")
         self.image = pygame.transform.scale(image, (80,60))
-        self.h=60
+        self.h=20
         self.x=x
         self.y=300
         self.width = width
-        self.rect =pygame.Rect(self.x+10,self.y,self.width+40,self.h)
+        self.rect =pygame.Rect(self.x+15,self.y,self.width+40,self.h)
         self.window=window
         self.last_updated=0
         self.vel=-120
