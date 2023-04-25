@@ -89,7 +89,7 @@ class Tela_Jogo():
     def desenha(self):
         if self.andando:
             if abs(self.scroll)>self.fundo.get_width():
-                self.scroll=0
+                self.scroll=self.fundo.get_width()+self.scroll
             else: 
                 self.scroll-=15
         for i in range(self.tiles):
