@@ -27,7 +27,6 @@ a.link_topo:link, a.link_topo:visited{
     align-items: center;
 }
 
-
 .vl{
     border-left: 3px solid aliceblue;
     height: 50px;
@@ -73,6 +72,10 @@ a.link_topo:link, a.link_topo:visited{
     background-color: rgb(184, 55, 38);
     padding: 50px;
     border-radius: 15px;
+}
+
+a.image_interrogation:hover,a.image_dowload:hover{
+    background-color: rgba(184, 55, 38, 0.575);
 }
 
 .cards_info{

@@ -105,6 +105,10 @@ a.link_cards:link, a.link_cards:visited{
     margin-left: 3%;
 }
 
+a.image_gift:hover,a.image_house:hover{
+    background-color:rgba(184, 55, 38, 0.575);
+}
+
 footer{
     background-color: rgb(109, 191, 214);
     bottom:0;
