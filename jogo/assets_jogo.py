@@ -35,6 +35,7 @@ class Player(pygame.sprite.Sprite):
                 self.vel_y=-450
                 image=pygame.image.load(self.images_animation[2])
                 self.image=pygame.transform.scale(image, (60,60))
+
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma:
