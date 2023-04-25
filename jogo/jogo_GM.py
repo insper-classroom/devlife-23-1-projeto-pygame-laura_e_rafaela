@@ -107,6 +107,11 @@ class Tela_Inicial():
         self.fundo_regras = pygame.Rect(self.largura_tela//2 - 150,self.altura_tela//2 + 40,120,40)
         self.fonte_regras = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
         self.regras = False
+        self.fundo_info = pygame.Rect(self.largura_tela//2 + 30,self.altura_tela//2 + 40,120,40)
+        self.fonte_info = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
+        self.info = False
+        self.logo = pygame.image.load("jogo/Assets_jogo/cookie_chase_vermelho.png")
+        self.logo = pygame.transform.scale(self.logo, (911.25, 109.5))
     def desenha(self):
 
         if abs(self.scroll)>self.fundo.get_width():
@@ -128,6 +133,14 @@ class Tela_Inicial():
         else:
             texto_regras = self.fonte_regras.render("REGRAS", True, (240, 248, 255))
             pygame.draw.rect(self.window,(184, 55, 38), self.fundo_regras,0 ,15)
+        if self.info:
+            texto_info = self.fonte_info.render("INFO", True, (184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255), self.fundo_info, 0, 15)
+        else:
+            texto_info = self.fonte_info.render("INFO", True, (240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38), self.fundo_info, 0, 15)
+        self.window.blit(self.logo, (0,0))
+        self.window.blit(texto_info, (self.largura_tela//2 + 65,self.altura_tela//2 + 40))
         self.window.blit(texto_regras, (self.largura_tela//2 - 140 ,self.altura_tela//2 + 40))
         self.window.blit(texto_jogar, (self.largura_tela//2-115,self.altura_tela//2-100))
         pygame.display.update()
@@ -142,6 +155,11 @@ class Tela_Inicial():
             self.regras = True
         else:
             self.regras = False
+        if checa_colisao (self.fundo_info.x, self.fundo_regras.y, self.fundo_info.width, self.fundo_info.height,pos_mouse[0],pos_mouse[1]):
+            self.info = True
+        else:
+            self.info = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return -1
