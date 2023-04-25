@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
         self.h=self.image.get_height()
-        self.radius=(self.h)/4
+        self.radius=(self.h)/5
         self.last_updated=0
         self.rect=self.image.get_rect()
         self.rect.x=50
@@ -30,11 +30,14 @@ class Player(pygame.sprite.Sprite):
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1 
-            if evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE and not self.pulo:
-                self.pulo = True
-                self.vel_y=-450
-                image=pygame.image.load(self.images_animation[2])
-                self.image=pygame.transform.scale(image, (60,60))
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_SPACE and not self.pulo:
+                    self.pulo = True
+                    self.vel_y=-450
+                    image=pygame.image.load(self.images_animation[2])
+                    self.image=pygame.transform.scale(image, (60,60))
+                if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
+                    self.vel_y*=-1
 
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
