@@ -102,8 +102,11 @@ class Tela_Inicial():
         self.clock=pygame.time.Clock()
         self.FPS=15
         self.fundo_jogar = pygame.Rect(self.largura_tela//2-150,self.altura_tela//2-100,300,100)
-        self.fonte_logo = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
+        self.fonte_jogar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
         self.jogar = False
+        self.fundo_regras = pygame.Rect(self.largura_tela//2 - 150,self.altura_tela//2 + 40,120,40)
+        self.fonte_regras = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
+        self.regras = False
     def desenha(self):
 
         if abs(self.scroll)>self.fundo.get_width():
@@ -113,11 +116,19 @@ class Tela_Inicial():
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
         if self.jogar:
-            texto_jogar = self.fonte_logo.render("JOGAR",True,(184, 55, 38))
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(184, 55, 38))
             pygame.draw.rect(self.window, (240, 248, 255),self.fundo_jogar,0,15)
         else:
-            texto_jogar = self.fonte_logo.render("JOGAR",True,(240, 248, 255))
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(240, 248, 255))
             pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar,0,15)
+        
+        if self.regras:
+            texto_regras = self.fonte_regras.render("REGRAS", True, (184, 55, 38))
+            pygame.draw.rect(self.window,(240, 248, 255), self.fundo_regras,0 ,15)
+        else:
+            texto_regras = self.fonte_regras.render("REGRAS", True, (240, 248, 255))
+            pygame.draw.rect(self.window,(184, 55, 38), self.fundo_regras,0 ,15)
+        self.window.blit(texto_regras, (self.largura_tela//2 - 140 ,self.altura_tela//2 + 40))
         self.window.blit(texto_jogar, (self.largura_tela//2-115,self.altura_tela//2-100))
         pygame.display.update()
     def atualiza(self):
@@ -127,6 +138,10 @@ class Tela_Inicial():
             self.jogar = True
         else:
             self.jogar= False
+        if checa_colisao (self.fundo_regras.x, self.fundo_regras.y, self.fundo_regras.width, self.fundo_regras.height,pos_mouse[0],pos_mouse[1]):
+            self.regras = True
+        else:
+            self.regras = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return -1
@@ -144,8 +159,7 @@ class Jogo:
         self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
         self.tela_atual=Tela_Inicial(self)
-        
-        # self.tela_atual=Tela_Jogo(self.window)
+
         
     
     def game_loop(self):
