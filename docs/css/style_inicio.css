@@ -1,0 +1,113 @@
+body{
+    background-image: url(../site_snow.png);
+    margin: 0;
+    width: 100%;
+}
+
+
+
+.topo{
+    display: flex;
+    align-content: center;
+    background-color: rgb(184, 55, 38);
+    color: aliceblue;
+    position: fixed;
+    width: 100%;
+    padding: 10px 20px;
+    top: 0px
+}
+
+a.link_topo:link, a.link_topo:visited{
+    text-decoration: none;
+    color: aliceblue;
+    font-family:'Roboto Condensed', sans-serif;
+    font-size: 175%;
+    padding-left: 1%;
+    padding-right: 1%;
+    display: flex;
+    align-items: center;
+}
+
+
+.vl{
+    border-left: 3px solid aliceblue;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.imagem_logo{
+    margin-right: auto;    
+}
+
+.image_ginger_inicio{
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-color: rgba(191, 226, 236,1);
+    margin-top: 200px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 100px;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 15px;
+
+}
+
+.cards{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 100px;
+    
+}
+
+.cards_title{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+}
+
+a.link_cards:link, a.link_cards:visited{
+    text-decoration: none;
+    font-weight: 400;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 150%;
+    color: aliceblue;
+    background: contain;
+    background-color: rgba(184, 55, 38, 0.82);
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-right: 6%;
+    margin-left: 6%;
+    margin-top: 2%;
+    border-radius: 15px;
+}
+
+
+.cards_image{
+    display: flex;
+    justify-content: center;
+}
+
+.image_gift, .image_house{
+    background-color: rgba(184, 55, 38, 1);
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 15px;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+footer{
+    background-color: rgb(109, 191, 214);
+    bottom:0;
+    position: fixed;
+    width: 110%;
+}
