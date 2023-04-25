@@ -12,6 +12,7 @@ class Tela_Jogo():
         self.clock=pygame.time.Clock()
         self.FPS=15
         self.player=Player(self.window, self)
+        self.all_monstros = pygame.sprite.Group()
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
         self.andando=False
@@ -36,6 +37,15 @@ class Tela_Jogo():
                 x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
                 biscoito=Biscoito(self.window,y,x)
             self.all_biscoitos.add(biscoito)
+        self.monstro_dx = 0
+        quant_monst = []
+        for i in range(4):
+            quant_monst.append(random.choice([True, False]))
+        for i in quant_monst:
+            if i:
+                x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
+                monstro = Monstro(self.window, x)
+                self.all_monstros.add(monstro)
 
     def atualiza(self):
         if not(self.musica_tocando):
@@ -59,7 +69,18 @@ class Tela_Jogo():
                 x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
                 biscoito=Biscoito(self.window,y,x)
             self.all_biscoitos.add(biscoito)
+        quant_monst = []
+        self.monstro_dx += 1500
+        for i in range(4):
+            quant_monst.append(random.choice([True, False]))
+        for i in quant_monst:
+            if i:
+                x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
+                monstro = Monstro(self.window, x)
+                self.all_monstros.add(monstro)
         player=self.player.update(self.all_biscoitos,self.all_plataformas)
+    
+        self.all_monstros.update(self.player, True)
         if player == -1:
             return -1
         self.andando=player
@@ -75,6 +96,7 @@ class Tela_Jogo():
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
         self.all_biscoitos.draw(self.window)
         self.all_plataformas.draw(self.window)
+        self.all_monstros.draw(self.window)
         self.player.desenha()
         pygame.display.update()
 

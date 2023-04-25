@@ -28,7 +28,15 @@ a.link_topo:link, a.link_topo:visited{
 }
 
 a.link_topo:hover{
-    background-color: rgb(188, 76, 61);
+    color: rgba(184, 55, 38, 1);
+    background-color:aliceblue;
+    border-radius: 15px;
+}
+
+a.sobre:link, a.sobre:visited{
+    color: rgba(184, 55, 38, 1);
+    background-color:aliceblue;
+    border-radius: 15px;
 }
 
 .vl{
