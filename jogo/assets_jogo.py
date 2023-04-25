@@ -125,11 +125,11 @@ class Biscoito(pygame.sprite.Sprite):
 
 class Monstro(pygame.sprite.Sprite):
 
-    def __init__(self,window):
+    def __init__(self,window,x):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
-        self.images_animation=[]
+        self.images_animation=["jogo/Assets_jogo/snow_monster/snow_monster_4_esquerda.png", "jogo/Assets_jogo/snow_monster/snow_monster_2_esquerda.png"]
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (80,80))
         self.vidas=1
@@ -137,21 +137,27 @@ class Monstro(pygame.sprite.Sprite):
         self.radius=(self.h)/2
         self.last_updated=0
         self.rect=self.image.get_rect()
-        self.rect.x=500
-        self.rect.y=520
+        self.rect.x=x
+        self.rect.y=420
+        self.vel=-120
 
-    def update(self):
+    def update(self, player, mexendo):
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1 
-        tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_d] or tecla[pygame.K_RIGHT]:
+        if pygame.sprite.collide_rect(player,self):
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (80,80))
+        v1=pygame.time.get_ticks()
+        if mexendo:
+            delta_t=(v1-self.last_updated)/1000
+            self.last_updated=v1 
+            self.rect.x=self.rect.x+(self.vel*delta_t)
+        self.last_updated=v1
         
         
-    def desenha(self):
+    def draw(self):
         self.window.blit(self.image,self.rect)
 
 class Plataforma (pygame.sprite.Sprite):
@@ -179,3 +185,5 @@ class Plataforma (pygame.sprite.Sprite):
             self.last_updated=v1 
             self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
+    
+
