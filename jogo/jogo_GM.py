@@ -27,6 +27,8 @@ class Tela_Jogo():
             self.all_plataformas.add(Plataforma(x,width,self.window))
         for i in range(10):
             y=random.randint(250,410)
+            while not(250>y or y>370):
+                y=random.randint(250,410)
             x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
             biscoito=Biscoito(self.window,y,x)
             while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
@@ -48,6 +50,8 @@ class Tela_Jogo():
         self.biscoito_dx += 1500
         for i in range(10):
             y=random.randint(250,410)
+            while not(280>y or y>370):
+                y=random.randint(250,410)
             x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
             biscoito=Biscoito(self.window,y,x)
             while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
