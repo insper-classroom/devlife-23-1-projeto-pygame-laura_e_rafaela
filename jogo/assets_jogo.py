@@ -143,7 +143,7 @@ class Monstro(pygame.sprite.Sprite):
         self.rect=pygame.Rect(self.x-20,self.y,40,80)
         self.vel=-120
         self.atacando=True
-        # self.som_esmaga=pygame.mixer.Sound('jogo/Assets_jogo/som_esmaga_monstro.mov')
+        self.som_esmaga=pygame.mixer.Sound('jogo/Assets_jogo/pula_no_monstro.mp3')
 
     def update(self, player, mexendo):
         v1=pygame.time.get_ticks()
@@ -155,15 +155,13 @@ class Monstro(pygame.sprite.Sprite):
         if pygame.sprite.collide_rect(player,self):
             if player.vel_y>0 and player.pulo:
                 self.kill()
-                # self.som_esmaga.play()
-
-            else:
-                self.indice_img=(self.indice_img+1)%len(self.images_animation)
-                image=pygame.image.load(self.images_animation[self.indice_img])
-                self.image=pygame.transform.scale(image, (80,80))
-            if self.atacando:
+                self.som_esmaga.play()
+            elif self.atacando:
                 player.vidas -= 1
                 self.atacando=False
+            self.indice_img=(self.indice_img+1)%len(self.images_animation)
+            image=pygame.image.load(self.images_animation[self.indice_img])
+            self.image=pygame.transform.scale(image, (80,80))
             return True
         
     def draw(self):
