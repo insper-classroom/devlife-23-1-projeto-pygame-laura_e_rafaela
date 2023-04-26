@@ -26,6 +26,9 @@ class Player(pygame.sprite.Sprite):
         cookie=pygame.image.load('jogo/Assets_jogo/biscoitos/biscoito_redondo.png')
         self.cookie=pygame.transform.scale(cookie,(20,20))
         self.cookies_coletados=0
+        self.pegou_biscoito_som=pygame.mixer.Sound('jogo/Assets_jogo/collect_cookie.mp3')
+        self.som_perdeu_vida=pygame.mixer.Sound('jogo/Assets_jogo/ginger_hurt.mp3')
+        self.pontos=0
 
     def update(self,all_biscoitos,all_plataformas,all_monstros):
         tempo_frame = pygame.time.get_ticks()
@@ -74,7 +77,7 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update(True)
         all_plataformas.update(True)
-
+        print(self.pontos)
         return True
             
     def desenha(self):
@@ -91,6 +94,8 @@ class Player(pygame.sprite.Sprite):
                 return False
         else:
             player.cookies_coletados+=1
+            player.pegou_biscoito_som.play()
+            player.pontos+=5
             pygame.sprite.spritecollideany(self,biscoitos).kill()
             return True
     
@@ -154,11 +159,13 @@ class Monstro(pygame.sprite.Sprite):
         self.last_updated=v1
         if pygame.sprite.collide_rect(player,self):
             if player.vel_y>0 and player.pulo:
-                self.kill()
                 self.som_esmaga.play()
+                self.kill()
+                player.pontos+=10
             elif self.atacando:
-                player.vidas -= 1
+                player.som_perdeu_vida.play()
                 self.atacando=False
+                player.vidas -= 1
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (80,80))
