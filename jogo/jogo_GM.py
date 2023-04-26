@@ -45,6 +45,10 @@ class Tela_Jogo():
             if i:
                 x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
                 monstro = Monstro(self.window, x)
+                while pygame.sprite.spritecollideany(monstro,self.all_monstros):
+                    x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
+                    monstro = Monstro(self.window, x)
+                pygame.sprite.spritecollide(monstro, self.all_monstros, True)
                 self.all_monstros.add(monstro)
 
     def atualiza(self):
@@ -77,6 +81,9 @@ class Tela_Jogo():
             if i:
                 x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
                 monstro = Monstro(self.window, x)
+                while pygame.sprite.spritecollideany(monstro, self.all_monstros):
+                    x=random.randint(500+self.monstro_dx, 1500 + self.biscoito_dx)
+                    monstro = Monstro(self.window, x)
                 self.all_monstros.add(monstro)
         player=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros)
         if player == -1:
