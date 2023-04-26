@@ -77,6 +77,8 @@ class Player(pygame.sprite.Sprite):
         all_biscoitos.update(True)
         all_plataformas.update(True)
         all_monstros.update(self,True)
+        if self.vidas==0:
+            return False
         return True
             
     def desenha(self):
