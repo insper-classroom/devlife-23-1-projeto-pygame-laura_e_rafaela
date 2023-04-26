@@ -42,8 +42,8 @@ class Player(pygame.sprite.Sprite):
                     self.image=pygame.transform.scale(image, (60,60))
                 if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
                     self.vel_y*=-1
-                elif evento.key == pygame.K_d:
-                    return False
+        if all_monstros.update(self,True):
+            return False
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma and self.vel_y>0:
@@ -74,8 +74,6 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update(True)
         all_plataformas.update(True)
-        while all_monstros.update(self,True):
-            return False
 
         return True
             
@@ -140,25 +138,33 @@ class Monstro(pygame.sprite.Sprite):
         self.h=self.image.get_height()
         self.radius=(self.h)/2
         self.last_updated=0
-        self.rect=self.image.get_rect()
-        self.rect.x=x
-        self.rect.y=420
+        self.x=x
+        self.y=420
+        self.rect=pygame.Rect(self.x-20,self.y,40,80)
         self.vel=-120
+        self.atacando=True
+        # self.som_esmaga=pygame.mixer.Sound('jogo/Assets_jogo/som_esmaga_monstro.mov')
 
     def update(self, player, mexendo):
-        if pygame.sprite.collide_rect(player,self):
-            self.indice_img=(self.indice_img+1)%len(self.images_animation)
-            image=pygame.image.load(self.images_animation[self.indice_img])
-            self.image=pygame.transform.scale(image, (80,80))
-            player.vidas -= 1
-            return True
         v1=pygame.time.get_ticks()
         if mexendo:
             delta_t=(v1-self.last_updated)/1000
             self.last_updated=v1 
             self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
-        
+        if pygame.sprite.collide_rect(player,self):
+            if player.vel_y>0 and player.pulo:
+                self.kill()
+                # self.som_esmaga.play()
+
+            else:
+                self.indice_img=(self.indice_img+1)%len(self.images_animation)
+                image=pygame.image.load(self.images_animation[self.indice_img])
+                self.image=pygame.transform.scale(image, (80,80))
+            if self.atacando:
+                player.vidas -= 1
+                self.atacando=False
+            return True
         
     def draw(self):
         self.window.blit(self.image,self.rect)
