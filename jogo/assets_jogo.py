@@ -42,7 +42,8 @@ class Player(pygame.sprite.Sprite):
                     self.image=pygame.transform.scale(image, (60,60))
                 if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
                     self.vel_y*=-1
-
+                elif evento.key == pygame.K_d:
+                    return False
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma and self.vel_y>0:
@@ -73,7 +74,8 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update(True)
         all_plataformas.update(True)
-        all_monstros.update(self,True)
+        while all_monstros.update(self,True):
+            return False
 
         return True
             
@@ -148,6 +150,8 @@ class Monstro(pygame.sprite.Sprite):
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (80,80))
+            player.vidas -= 1
+            return True
         v1=pygame.time.get_ticks()
         if mexendo:
             delta_t=(v1-self.last_updated)/1000
