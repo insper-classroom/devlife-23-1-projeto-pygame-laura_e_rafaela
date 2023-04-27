@@ -12,8 +12,8 @@ body{
     background-color: rgb(184, 55, 38);
     color: aliceblue;
     width: 100%;
-    padding: 10px 20px;
-    top: 0px
+    padding: 10px 0px;
+    margin-right: 20px;
 }
 
 a.link_topo:link, a.link_topo:visited{
@@ -21,8 +21,8 @@ a.link_topo:link, a.link_topo:visited{
     color: aliceblue;
     font-family:'Roboto Condensed', sans-serif;
     font-size: 175%;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
     display: flex;
     align-items: center;
     
@@ -137,7 +137,6 @@ a.image_gift:hover,a.image_house:hover{
 
 footer{
     background-color: rgba(184, 55, 38, 1);
-    width: 110%;
     padding: 20px;
     text-align: center;
     color:aliceblue;
