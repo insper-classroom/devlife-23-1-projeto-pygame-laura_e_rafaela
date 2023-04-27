@@ -10,7 +10,6 @@ body{
     align-content: center;
     background-color: rgb(184, 55, 38);
     color: aliceblue;
-    position: fixed;
     width: 100%;
     padding: 10px 20px;
     top: 0px
@@ -115,13 +114,10 @@ p{
 
 }
 
-
-
-
-
 footer{
-    background-color: rgb(109, 191, 214);
-    bottom:0;
-    position: fixed;
+    background-color: rgba(184, 55, 38, 1);
     width: 110%;
+    padding: 20px;
+    text-align: center;
+    color:aliceblue;
 }

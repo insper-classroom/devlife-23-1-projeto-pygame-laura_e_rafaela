@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.window=window
         self.indice_img=0
-        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png','jogo/Assets_jogo/Gingerman/gingerman_4.png']
+        self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png','jogo/Assets_jogo/Gingerman/gingerman_4.png','jogo/Assets_jogo/Gingerman/gingerman_6.png']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
         self.vidas=2
@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.tela_jogo = tela_jogo
         self.t0 = 0
         self.chao=420
-        self.fonte=pygame.font.Font('jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/font_jogo/PressStart2P.ttf')
+        self.fonte=pygame.font.Font('jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/font_jogo/PressStart2P.ttf',16)
         cookie=pygame.image.load('jogo/Assets_jogo/biscoitos/biscoito_redondo.png')
         self.cookie=pygame.transform.scale(cookie,(20,20))
         self.cookies_coletados=0
@@ -45,8 +45,7 @@ class Player(pygame.sprite.Sprite):
                     self.image=pygame.transform.scale(image, (60,60))
                 if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
                     self.vel_y*=-1
-        if all_monstros.update(self,True):
-            return False
+            
         #verifica se ele está na plataforma
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma and self.vel_y>0:
@@ -77,7 +76,9 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update(True)
         all_plataformas.update(True)
-        print(self.pontos)
+        all_monstros.update(self,True)
+        if self.vidas==0:
+            return False
         return True
             
     def desenha(self):
@@ -157,20 +158,27 @@ class Monstro(pygame.sprite.Sprite):
             self.last_updated=v1 
             self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
+        machucando=True
         if pygame.sprite.collide_rect(player,self):
             if player.vel_y>0 and player.pulo:
                 self.som_esmaga.play()
                 self.kill()
                 player.pontos+=10
-            elif self.atacando:
+                machucando=False
+            elif self.atacando and not player.pulo:
+                image=pygame.image.load(player.images_animation[4])
+                player.image=pygame.transform.scale(image, (60,60))
                 player.som_perdeu_vida.play()
                 self.atacando=False
                 player.vidas -= 1
+                machucando=True 
+            if machucando:
+                image=pygame.image.load(player.images_animation[4])
+                player.image=pygame.transform.scale(image, (60,60))
             self.indice_img=(self.indice_img+1)%len(self.images_animation)
             image=pygame.image.load(self.images_animation[self.indice_img])
             self.image=pygame.transform.scale(image, (80,80))
-            return True
-        
+  
     def draw(self):
         self.window.blit(self.image,self.rect)
 
