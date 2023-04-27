@@ -81,7 +81,7 @@ a.link_topo:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
 
 }
 
@@ -150,7 +150,6 @@ p{
 
 footer{
     background-color: rgba(184, 55, 38, 1);
-    width: 110%;
     padding: 20px;
     text-align: center;
     color:aliceblue;
