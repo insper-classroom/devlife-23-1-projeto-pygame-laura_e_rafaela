@@ -258,20 +258,20 @@ class Tela_game_over():
         self.fundo=pygame.transform.scale(fundo, (1300, 600))
         self.clock=pygame.time.Clock()
         self.FPS=15
-        self.fundo_jogar_dnv = pygame.Rect(self.largura_tela//2-250,self.altura_tela//2-200,300,100)
+        self.fundo_jogar_dnv = pygame.Rect(self.largura_tela//2 - 350,self.altura_tela//2-50,700,100)
         self.fonte_jogar_dnv = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
         self.jogar_dnv=False
         self.som=pygame.mixer.Sound('jogo/Assets_jogo/game_over.wav')
         self.som_tocou=False
     def desenha(self):
+        self.window.blit(self.fundo,(0,0))
         if self.jogar_dnv:
-            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR",True,(184, 55, 38))
+            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR NOVAMENTE",True,(184, 55, 38))
             pygame.draw.rect(self.window, (240, 248, 255),self.fundo_jogar_dnv,0,15)
         else:
-            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR",True,(240, 248, 255))
+            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR NOVAMENTE",True,(240, 248, 255))
             pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar_dnv,0,15)
-        self.window.blit(texto_jogar_dnv, (self.largura_tela//2-115,self.altura_tela//2-100))
-        self.window.blit(self.fundo,(0,0))
+        self.window.blit(texto_jogar_dnv, (self.largura_tela//2-325,self.altura_tela//2-50))
         pygame.display.update()
 
     def atualiza(self):
@@ -314,7 +314,7 @@ class Jogo:
         self.largura_tela=1300
         self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
-        self.tela_atual=Tela_Inicial(self.window)
+        self.tela_atual=Tela_game_over(self.window)
 
         
     
