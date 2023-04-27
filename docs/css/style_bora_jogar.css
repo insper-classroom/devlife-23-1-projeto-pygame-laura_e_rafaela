@@ -30,12 +30,31 @@ a.link_topo:hover{
     background-color:aliceblue;
     border-radius: 15px;
 }
-
-a.bora:link, a.bora:visited{
-    color: rgba(184, 55, 38, 1);
-    background-color:aliceblue;
+.casa_branca{
+    display: flex;
     border-radius: 15px;
+    align-self: center;
+    padding: 3% 0% 3% 2%;
 }
+
+.casa_branca:hover{
+    background-color: aliceblue;
+}
+
+.casa_vermelha{
+    visibility: hidden;
+    position: relative;
+    align-self: center;
+    background-color: aliceblue;
+    right: 50%
+}
+
+
+a.link_topo:hover ~ a.casa_vermelha{
+    visibility: visible;
+}
+
+
 
 
 .vl{
