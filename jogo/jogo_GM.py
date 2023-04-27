@@ -103,11 +103,11 @@ class Tela_Inicial():
         self.fundo_jogar = pygame.Rect(self.largura_tela//2-150,self.altura_tela//2-100,300,100)
         self.fonte_jogar= pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
         self.jogar = False
-        self.fundo_regras= pygame.Rect(self.largura_tela//2-150,self.altura_tela//2-100,300,100)
-        self.fonte_regras=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
+        self.fundo_regras= pygame.Rect(self.largura_tela//2-150,self.altura_tela//2+40,120,40)
+        self.fonte_regras=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
         self.regras=False 
-        self.fundo_info=pygame.Rect(self.largura_tela//2-150,self.altura_tela//2-100,300,100)
-        self.fonte_info=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
+        self.fundo_info=pygame.Rect(self.largura_tela//2+30,self.altura_tela//2+40,120,40)
+        self.fonte_info=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
         self.info=False
         self.logo=pygame.image.load('jogo/Assets_jogo/cookie_chase_vermelho.png')
     def desenha(self):
@@ -137,7 +137,7 @@ class Tela_Inicial():
         else:
             texto_info = self.fonte_info.render("INFO", True, (240, 248, 255))
             pygame.draw.rect(self.window, (184, 55, 38), self.fundo_info, 0, 15)
-        self.window.blit(self.logo, (190,40))
+        self.window.blit(self.logo, (40,20))
         self.window.blit(texto_info, (self.largura_tela//2 + 65,self.altura_tela//2 + 40))
         self.window.blit(texto_regras, (self.largura_tela//2 - 140 ,self.altura_tela//2 + 40))
         self.window.blit(texto_jogar, (self.largura_tela//2-115,self.altura_tela//2-100))
