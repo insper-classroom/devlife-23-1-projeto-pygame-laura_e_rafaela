@@ -37,12 +37,30 @@ a.link_topo:hover{
 
 }
 
-.vl{
-    border-left: 3px solid aliceblue;
-    height: 50px;
+.casa_branca{
     display: flex;
-    justify-content: center;
+    border-radius: 15px;
     align-self: center;
+    padding: 3% 0% 3% 2%;
+}
+
+.casa_branca:hover{
+    background-color: aliceblue;
+}
+
+.casa_vermelha{
+    visibility: hidden;
+    position: relative;
+    align-self: center;
+    background-color: aliceblue;
+    right: 50%
+}
+
+
+a.link_topo:hover ~ a.casa_vermelha{
+    visibility: visible;
+
+
 }
 
 .imagem_logo{
@@ -53,7 +71,7 @@ a.link_topo:hover{
     display: flex;
     justify-content: center;
     background-size: cover;
-    background-color: rgba(184, 55, 38,1);
+    background-color: #b83726;
     margin-top: 200px;
     margin-left: 20%;
     margin-right: 20%;
