@@ -74,16 +74,9 @@ a.link_topo:hover{
     background-image: url(../home_red.png);
 }
 
-.vl{
-    border-left: 3px solid aliceblue;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-}
-
 .imagem_logo{
     margin-right: auto;    
+    margin-left: 100px;
 }
 
 .cards{
@@ -157,7 +150,6 @@ p{
 
 footer{
     background-color: rgba(184, 55, 38, 1);
-    width: 110%;
     padding: 20px;
     text-align: center;
     color:aliceblue;
