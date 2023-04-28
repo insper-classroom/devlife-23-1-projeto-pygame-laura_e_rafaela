@@ -30,13 +30,13 @@ class Player(pygame.sprite.Sprite):
         self.som_perdeu_vida=pygame.mixer.Sound('jogo/Assets_jogo/ginger_hurt.mp3')
         self.pontos=0
 
-    def update(self,all_biscoitos,all_plataformas,all_monstros):
+    def update(self,all_biscoitos,all_plataformas,all_monstros,andando):
         tempo_frame = pygame.time.get_ticks()
         dt = (tempo_frame - self.t0)/1000
         self.t0 = tempo_frame
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
-                return -1 
+                return -1,self.pontos
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_SPACE and not self.pulo:
                     self.pulo = True
@@ -78,8 +78,8 @@ class Player(pygame.sprite.Sprite):
         all_plataformas.update(True)
         all_monstros.update(self,True)
         if self.vidas==0:
-            return False
-        return True
+            return False,self.pontos
+        return True,self.pontos
             
     def desenha(self):
         self.window.blit(self.image,self.rect)

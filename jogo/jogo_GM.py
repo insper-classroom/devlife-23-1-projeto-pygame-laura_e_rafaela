@@ -15,7 +15,7 @@ class Tela_Jogo():
         self.all_monstros = pygame.sprite.Group()
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
-        self.andando=False
+        self.andando=True
         self.biscoito_dx = 0
         self.plat_dx=0
         self.all_biscoitos=pygame.sprite.Group()
@@ -43,36 +43,43 @@ class Tela_Jogo():
             self.sound.play(-1)
             self.musica_tocando=True
         self.clock.tick(self.FPS)
-        self.plat_dx+=1000
-        for i in range(10):
-            x = random.randint(100, 1000)
-            width = random.randint(2, 6)
-            self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
-        self.biscoito_dx += 1000
-        for i in range(10):
-            y=random.randint(350,410)
-            while not(280>y or y>370):
-                y=random.randint(250,410)
-            x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
-            biscoito=Biscoito(self.window,y,x)
-            while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
-                y=random.randint(250,410)
+        if self.andando:
+            self.plat_dx+=1000
+            for i in range(10):
+                x = random.randint(100, 1000)
+                width = random.randint(2, 6)
+                self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
+            self.biscoito_dx += 1000
+            for i in range(10):
+                y=random.randint(350,410)
+                while not(280>y or y>370):
+                    y=random.randint(250,410)
                 x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
                 biscoito=Biscoito(self.window,y,x)
-            self.all_biscoitos.add(biscoito)
-        self.monstro_dx += 500
-        x=random.randint(self.monstro_dx,50+ self.monstro_dx)
-        monstro = Monstro(self.window, x)
-        self.all_monstros.add(monstro)
-        player=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros)
-        if player == -1:
-            return -1
-        elif not(player):
-            self.sound.stop()
-            return Tela_game_over(self.window)
-        self.andando=player
-        return self  
-    
+                while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
+                    y=random.randint(250,410)
+                    x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+                    biscoito=Biscoito(self.window,y,x)
+                self.all_biscoitos.add(biscoito)
+            self.monstro_dx += 500
+            x=random.randint(self.monstro_dx,50+ self.monstro_dx)
+            monstro = Monstro(self.window, x)
+            self.all_monstros.add(monstro)
+            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,True)
+            if player == -1:
+                return -1
+            elif not(player):
+                self.sound.stop()
+                return Tela_game_over(self.window)
+            self.andando=player
+            if pontos>500:
+                self.andando=False
+        else:
+            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,True)
+            if player == -1:
+                return -1
+        return self
+            
     def desenha(self):
         if self.andando:
             if abs(self.scroll)>self.fundo.get_width():
