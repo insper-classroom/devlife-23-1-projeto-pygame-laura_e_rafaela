@@ -133,6 +133,10 @@ a.link_cards:link, a.link_cards:visited{
     margin-bottom: 30px;
 }
 
+a.link_cards:hover{
+    background-color: rgba(148, 43, 29, 0.879);
+}
+
 .video_jogo{
     display: block;
     margin:0 auto;

@@ -129,6 +129,12 @@ a.link_cards:link, a.link_cards:visited{
 }
 
 
+a.link_cards:hover{
+    background-color: rgba(148, 43, 29, 0.879);
+}
+
+
+
 .cards_image{
     display: flex;
     justify-content: center;
