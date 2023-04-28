@@ -239,22 +239,17 @@ class Casa (pygame.sprite.Sprite):
         image = pygame.image.load("jogo/Assets_jogo/Gingerbread_house/casa_gingerbread.png")
         self.image = pygame.transform.scale(image, (300,200))
         self.rect =self.image.get_rect()
-        self.rect.x=1870
+        self.rect.x=1300
         self.rect.y=300 
         self.window=window
         self.last_updated=0
-        self.vel_x=0
-        self.ace_x=2
-        self.t0 = 0
+        self.vel_x=2
+        self.ace_x=1
 
     def desenha(self):
         self.window.blit(self.image,self.rect)
-        print(self.rect.x,self.rect.y)
 
     def update(self):
-        tempo_frame = pygame.time.get_ticks()
-        dt = (tempo_frame - self.t0)/1000
-        self.t0 = tempo_frame
-        self.vel_x += self.ace_x * dt
-        self.rect.x -= self.vel_x * dt
+        self.vel_x += self.ace_x
+        self.rect.x -= self.vel_x
         
