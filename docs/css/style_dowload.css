@@ -123,6 +123,8 @@ a.link_topo:hover{
     margin-left: 50px;
 
 }
+
+
 a.link_cards:link, a.link_cards:visited{
     text-decoration: none;
     font-weight: 400;
@@ -136,21 +138,6 @@ a.link_cards:link, a.link_cards:visited{
     margin-left: 70PX;
 }
 
-
-.dowload_zip:link, .dowload_zip:visited{
-    text-decoration: none;
-    color:aliceblue ;
-    display: flex;
-    justify-content: center;
-    font-weight: 400;
-    font-size: 17px;
-    font-family: 'Roboto Condensed', sans-serif;
-    background-color: rgb(184, 55, 38);
-    margin: 50px 400px;
-    padding: 10px 20px;
-    border-radius: 15px;
-
-}
 
 footer{
     background-color: rgba(184, 55, 38, 1);
