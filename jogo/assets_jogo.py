@@ -172,6 +172,8 @@ class Monstro(pygame.sprite.Sprite):
                 self.atacando=False
                 player.vidas -= 1
                 machucando=True 
+                # self.kill()
+
             if machucando:
                 image=pygame.image.load(player.images_animation[4])
                 player.image=pygame.transform.scale(image, (60,60))
