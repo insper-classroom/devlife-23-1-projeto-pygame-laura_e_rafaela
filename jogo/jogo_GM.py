@@ -22,6 +22,7 @@ class Tela_Jogo():
         self.all_plataformas = pygame.sprite.Group()
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
         self.musica_tocando=False
+        self.pontos_atingidos=False
         for i in range(6):
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
@@ -43,7 +44,7 @@ class Tela_Jogo():
             self.sound.play(-1)
             self.musica_tocando=True
         self.clock.tick(self.FPS)
-        if self.andando:
+        if not(self.pontos_atingidos):
             self.plat_dx+=1000
             for i in range(10):
                 x = random.randint(100, 1000)
@@ -65,17 +66,31 @@ class Tela_Jogo():
             x=random.randint(self.monstro_dx,50+ self.monstro_dx)
             monstro = Monstro(self.window, x)
             self.all_monstros.add(monstro)
-            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,True)
+            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
             elif not(player):
                 self.sound.stop()
                 return Tela_game_over(self.window)
             self.andando=player
-            if pontos>500:
-                self.andando=False
+            if pontos>50:
+                self.pontos_atingidos=True
+                for plataforma in self.all_plataformas:
+                    if plataforma.rect.x>1300:
+                        plataforma.kill()
+                for monstro in self.all_monstros:
+                    if monstro.rect.x>1300:
+                        monstro.kill()
+                for biscoito in self.all_biscoitos:
+                    if biscoito.rect.x>1300:
+                        biscoito.kill()
         else:
-            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,True)
+            passou=True
+            for plataforma in self.all_plataformas:
+                if plataforma.rect.x>0:
+                    plataforma.kill()
+            self.andando=not(passou)
+            player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
         return self

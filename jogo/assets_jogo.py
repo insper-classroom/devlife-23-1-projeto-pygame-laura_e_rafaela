@@ -29,6 +29,8 @@ class Player(pygame.sprite.Sprite):
         self.pegou_biscoito_som=pygame.mixer.Sound('jogo/Assets_jogo/collect_cookie.mp3')
         self.som_perdeu_vida=pygame.mixer.Sound('jogo/Assets_jogo/ginger_hurt.mp3')
         self.pontos=0
+        self.vel_x=0
+        self.ace_x=0
 
     def update(self,all_biscoitos,all_plataformas,all_monstros,andando):
         tempo_frame = pygame.time.get_ticks()
@@ -37,16 +39,21 @@ class Player(pygame.sprite.Sprite):
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 return -1,self.pontos
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_SPACE and not self.pulo:
-                    self.pulo = True
-                    self.vel_y=-450
-                    image=pygame.image.load(self.images_animation[2])
-                    self.image=pygame.transform.scale(image, (60,60))
-                if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
-                    self.vel_y*=-1
-            
+            if andando:
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_SPACE and not self.pulo:
+                        self.pulo = True
+                        self.vel_y=-450
+                        image=pygame.image.load(self.images_animation[2])
+                        self.image=pygame.transform.scale(image, (60,60))
+                    if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
+                        self.vel_y*=-1
+            elif not andando:
+                self.vel_x=200
+                self.ace_x=10
         #verifica se ele está na plataforma
+        self.vel_x += self.ace_x * dt
+        self.rect.x += self.vel_x * dt
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma and self.vel_y>0:
                 self.chao=248
@@ -54,7 +61,7 @@ class Player(pygame.sprite.Sprite):
             self.chao=420 
         self.vel_y += self.ace * dt
         self.rect.y += self.vel_y * dt
-
+       
         #barreira pro boneco não atravessar o chão
         if self.rect.y >= self.chao:
             self.rect.y=self.chao
@@ -74,13 +81,15 @@ class Player(pygame.sprite.Sprite):
         elif self.vel_y>0:
             image=pygame.image.load(self.images_animation[3])
             self.image=pygame.transform.scale(image, (60,60))
-        all_biscoitos.update(True)
-        all_plataformas.update(True)
+        all_biscoitos.update()
+        all_plataformas.update()
         all_monstros.update(self,True)
         if self.vidas==0:
+            all_plataformas.update(False)
             return False,self.pontos
         return True,self.pontos
             
+
     def desenha(self):
         self.window.blit(self.image,self.rect)
         desenho_coracoes=self.fonte.render(chr(9829)*self.vidas,True,(255,0,0))
@@ -119,12 +128,11 @@ class Biscoito(pygame.sprite.Sprite):
         self.last_updated=0
         self.vel=-120
 
-    def update(self,mexendo):
+    def update(self):
         v1=pygame.time.get_ticks()
-        if mexendo:
-            delta_t=(v1-self.last_updated)/1000
-            self.last_updated=v1 
-            self.rect.x=self.rect.x+(self.vel*delta_t)
+        delta_t=(v1-self.last_updated)/1000
+        self.last_updated=v1 
+        self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
         
     def draw(self):
@@ -201,12 +209,12 @@ class Plataforma (pygame.sprite.Sprite):
     def draw(self):
         self.window.blit(self.image, self.rect.y)
 
-    def update(self,mexendo):
+    def update(self,mexendo=True):
         v1=pygame.time.get_ticks()
-        if mexendo:
-            delta_t=(v1-self.last_updated)/1000
-            self.last_updated=v1 
-            self.rect.x=self.rect.x+(self.vel*delta_t)
+        delta_t=(v1-self.last_updated)/1000
+        self.last_updated=v1 
+        self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
-    
-
+        if not(mexendo):
+            if self.x>1300:
+                self.kill
