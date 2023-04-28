@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png','jogo/Assets_jogo/Gingerman/gingerman_4.png','jogo/Assets_jogo/Gingerman/gingerman_6.png']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
-        self.vidas=2
+        self.vidas=5
         self.h=self.image.get_height()
         self.radius=(self.h)/5
         self.last_updated=0
@@ -172,7 +172,6 @@ class Monstro(pygame.sprite.Sprite):
                 self.atacando=False
                 player.vidas -= 1
                 machucando=True 
-                # self.kill()
 
             if machucando:
                 image=pygame.image.load(player.images_animation[4])
