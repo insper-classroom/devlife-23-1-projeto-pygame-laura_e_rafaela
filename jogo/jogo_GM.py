@@ -314,7 +314,7 @@ class Jogo:
         self.largura_tela=1300
         self.altura_tela=600
         self.window=pygame.display.set_mode((self.largura_tela,self.altura_tela))
-        self.tela_atual=Tela_game_over(self.window)
+        self.tela_atual=Tela_Inicial(self.window)
 
         
     
