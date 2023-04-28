@@ -23,6 +23,8 @@ class Tela_Jogo():
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
         self.musica_tocando=False
         self.pontos_atingidos=False
+        self.casa=Casa(self.window)
+
         for i in range(6):
             x = random.randint(100, 1000)
             width = random.randint(2, 6)
@@ -84,15 +86,20 @@ class Tela_Jogo():
                 for biscoito in self.all_biscoitos:
                     if biscoito.rect.x>1300:
                         biscoito.kill()
+            
         else:
             passou=True
             for plataforma in self.all_plataformas:
                 if plataforma.rect.x>0:
-                    plataforma.kill()
+                    passou=False
             self.andando=not(passou)
+            if not(self.andando) and self.player.rect.x<400:
+                self.casa.update()
             player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
+            if self.player.rect.x>=400:
+                self.sound.set_volume(0.25)
         return self
             
     def desenha(self):
@@ -106,6 +113,7 @@ class Tela_Jogo():
         self.all_biscoitos.draw(self.window)
         self.all_plataformas.draw(self.window)
         self.all_monstros.draw(self.window)
+        self.casa.desenha()
         self.player.desenha()
         pygame.display.update()
 

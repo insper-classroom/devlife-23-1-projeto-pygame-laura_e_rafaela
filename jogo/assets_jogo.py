@@ -1,5 +1,5 @@
-import pygame 
 
+import pygame 
 class Player(pygame.sprite.Sprite):
 
     def __init__(self,window, tela_jogo):
@@ -7,9 +7,10 @@ class Player(pygame.sprite.Sprite):
         self.window=window
         self.indice_img=0
         self.images_animation=['jogo/Assets_jogo/Gingerman/gingerman_1.png','jogo/Assets_jogo/Gingerman/gingerman_2.png','jogo/Assets_jogo/Gingerman/gingerman_3.png','jogo/Assets_jogo/Gingerman/gingerman_4.png','jogo/Assets_jogo/Gingerman/gingerman_6.png']
+        self.images_dance=['jogo/Assets_jogo/Gingerman/gingerman_8.png','jogo/Assets_jogo/Gingerman/gingerman_10.png','jogo/Assets_jogo/Gingerman/gingerman_9.png','jogo/Assets_jogo/Gingerman/gingerman_7.png']
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (60,60))
-        self.vidas=5
+        self.vidas=3
         self.h=self.image.get_height()
         self.radius=(self.h)/5
         self.last_updated=0
@@ -31,6 +32,8 @@ class Player(pygame.sprite.Sprite):
         self.pontos=0
         self.vel_x=0
         self.ace_x=0
+        self.indice_dance=0
+        self.win_sound=pygame.mixer.Sound('jogo/Assets_jogo/win.mp3')
 
     def update(self,all_biscoitos,all_plataformas,all_monstros,andando):
         tempo_frame = pygame.time.get_ticks()
@@ -48,12 +51,16 @@ class Player(pygame.sprite.Sprite):
                         self.image=pygame.transform.scale(image, (60,60))
                     if evento.key == pygame.K_DOWN and self.pulo and self.vel_y<0:
                         self.vel_y*=-1
-            elif not andando:
-                self.vel_x=200
-                self.ace_x=10
+        if not andando:
+            self.vel_x=200
+            self.ace_x=50
+        if self.rect.x>=600:
+            self.vel_x=0
+            self.ace_x=0
         #verifica se ele está na plataforma
         self.vel_x += self.ace_x * dt
         self.rect.x += self.vel_x * dt
+
         plataforma = self.esta_na_plataforma(all_plataformas)
         if plataforma and self.vel_y>0:
                 self.chao=248
@@ -61,26 +68,33 @@ class Player(pygame.sprite.Sprite):
             self.chao=420 
         self.vel_y += self.ace * dt
         self.rect.y += self.vel_y * dt
-       
         #barreira pro boneco não atravessar o chão
         if self.rect.y >= self.chao:
             self.rect.y=self.chao
             self.pulo=False
             self.vel=0
+
         self.pegou_biscoito(all_biscoitos,self)
+        if self.rect.x<600:
+            if not(self.pulo):
+                self.indice_img=(self.indice_img+1)%2
+                image=pygame.image.load(self.images_animation[self.indice_img])
+                self.image=pygame.transform.scale(image, (60,60))
+            
+            elif self.vel_y<0:
+                image=pygame.image.load(self.images_animation[2])
+                self.image=pygame.transform.scale(image, (60,60))
 
-        if not(self.pulo):
-            self.indice_img=(self.indice_img+1)%2
-            image=pygame.image.load(self.images_animation[self.indice_img])
-            self.image=pygame.transform.scale(image, (60,60))
+            elif self.vel_y>0:
+                image=pygame.image.load(self.images_animation[3])
+                self.image=pygame.transform.scale(image, (60,60))
         
-        elif self.vel_y<0:
-            image=pygame.image.load(self.images_animation[2])
-            self.image=pygame.transform.scale(image, (60,60))
+        elif self.rect.x>=600:
+                self.win_sound.play()
+                self.indice_dance=(self.indice_dance+1)%4
+                image=pygame.image.load(self.images_dance[self.indice_dance])
+                self.image=pygame.transform.scale(image, (60,60))
 
-        elif self.vel_y>0:
-            image=pygame.image.load(self.images_animation[3])
-            self.image=pygame.transform.scale(image, (60,60))
         all_biscoitos.update()
         all_plataformas.update()
         all_monstros.update(self,True)
@@ -148,7 +162,6 @@ class Monstro(pygame.sprite.Sprite):
         self.images_animation=["jogo/Assets_jogo/snow_monster/snow_monster_4_esquerda.png", "jogo/Assets_jogo/snow_monster/snow_monster_2_esquerda.png"]
         image=pygame.image.load(self.images_animation[self.indice_img])
         self.image=pygame.transform.scale(image, (80,80))
-        self.vidas=1
         self.h=self.image.get_height()
         self.radius=(self.h)/2
         self.last_updated=0
@@ -218,3 +231,30 @@ class Plataforma (pygame.sprite.Sprite):
         if not(mexendo):
             if self.x>1300:
                 self.kill
+
+    
+class Casa (pygame.sprite.Sprite):
+    def __init__(self,window):
+        pygame.sprite.Sprite.__init__(self)
+        image = pygame.image.load("jogo/Assets_jogo/Gingerbread_house/casa_gingerbread.png")
+        self.image = pygame.transform.scale(image, (300,200))
+        self.rect =self.image.get_rect()
+        self.rect.x=1870
+        self.rect.y=300 
+        self.window=window
+        self.last_updated=0
+        self.vel_x=0
+        self.ace_x=2
+        self.t0 = 0
+
+    def desenha(self):
+        self.window.blit(self.image,self.rect)
+        print(self.rect.x,self.rect.y)
+
+    def update(self):
+        tempo_frame = pygame.time.get_ticks()
+        dt = (tempo_frame - self.t0)/1000
+        self.t0 = tempo_frame
+        self.vel_x += self.ace_x * dt
+        self.rect.x -= self.vel_x * dt
+        
