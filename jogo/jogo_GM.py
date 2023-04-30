@@ -344,7 +344,37 @@ class Tela_game_over():
             return False
 
 class Tela_Info ():
-    pass
+    def __init__(self,window):
+        pygame.init()
+        self.window=window
+        fundo=pygame.image.load('jogo/Assets_jogo/img_fundo_regras.png').convert()
+        self.fundo=pygame.transform.scale(fundo,(1300,600))
+        self.fundo_jogar = pygame.Rect(380,366,185,60)
+        self.fonte_jogar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 60)
+        self.jogar = False
+        self.fundo_voltar = pygame.Rect(670,366,205,60)
+        self.fonte_voltar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 60)
+        self.voltar = False
+        self.FPS=15
+        self.clock=pygame.time.Clock()
+
+    def desenha(self):
+        self.window.blit(self.fundo,(0,0))
+        if self.jogar:
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255),self.fundo_jogar,0,15)
+        else:
+            texto_jogar = self.fonte_jogar.render("JOGAR",True,(240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar,0,15)
+        self.window.blit(texto_jogar, (380,360))
+        if self.voltar:
+            texto_voltar = self.fonte_voltar.render("VOLTAR",True,(184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255),self.fundo_voltar,0,15)
+        else:
+            texto_voltar = self.fonte_voltar.render("VOLTAR",True,(240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38),self.fundo_voltar,0,15)
+        self.window.blit(texto_voltar, (670,360))
+        pygame.display.update()
 
 
 class Tela_win():
