@@ -79,7 +79,7 @@ class Tela_Jogo():
                 self.sound.stop()
                 return Tela_game_over(self.window)
             self.andando=player
-            if pontos>50:
+            if pontos>60:
                 self.pontos_atingidos=True
                 for plataforma in self.all_plataformas:
                     if plataforma.rect.x>1300:
@@ -108,7 +108,6 @@ class Tela_Jogo():
                 temp=(pygame.time.get_ticks())-self.start_time
                 if self.final_time==0:
                     self.final_time=temp/1000
-                print(temp)
                 if (temp/1000)-self.final_time>5:
                     self.sound.stop()
                     return Tela_win(self.window,pontos,self.final_time)
