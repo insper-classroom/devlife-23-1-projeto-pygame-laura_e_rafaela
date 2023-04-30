@@ -24,9 +24,9 @@ class Tela_Jogo():
         self.musica_tocando=False
         self.pontos_atingidos=False
         self.casa=Casa(self.window)
-        self.start_time=pygame.time.get_ticks()
         self.final_time=0
-
+        self.start_time=pygame.time.get_ticks()
+        self.last_updated=0
 
         for i in range(6):
             x = random.randint(100, 1000)
@@ -43,6 +43,7 @@ class Tela_Jogo():
         x=random.randint(self.monstro_dx,50+self.monstro_dx)
         monstro = Monstro(self.window, x)
         self.all_monstros.add(monstro)
+
 
     def atualiza(self):
         if not(self.musica_tocando):
@@ -79,7 +80,6 @@ class Tela_Jogo():
                 return Tela_game_over(self.window)
             self.andando=player
             if pontos>50:
-                
                 self.pontos_atingidos=True
                 for plataforma in self.all_plataformas:
                     if plataforma.rect.x>1300:
@@ -100,15 +100,15 @@ class Tela_Jogo():
             
             if not(self.andando) and self.player.rect.x<400:
                 self.casa.update()
-                
             player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
             if self.player.rect.x>=400:
-                self.sound.set_volume(0.25)
-                temp=pygame.time.get_ticks()
+                self.sound.set_volume(0.25) 
+                temp=(pygame.time.get_ticks())-self.start_time
                 if self.final_time==0:
-                    self.final_time=(temp-self.start_time)/1000
+                    self.final_time=temp/1000
+                print(temp)
                 if (temp/1000)-self.final_time>5:
                     self.sound.stop()
                     return Tela_win(self.window,pontos,self.final_time)
