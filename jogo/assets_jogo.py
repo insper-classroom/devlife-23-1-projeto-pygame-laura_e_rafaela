@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.cookies_coletados=0
         self.pegou_biscoito_som=pygame.mixer.Sound('jogo/Assets_jogo/collect_cookie.mp3')
         self.som_perdeu_vida=pygame.mixer.Sound('jogo/Assets_jogo/ginger_hurt.mp3')
-        self.pontos=0
+        self.pontos=100
         self.vel_x=0
         self.ace_x=0
         self.indice_dance=0

@@ -359,7 +359,7 @@ class Tela_win():
         self.fonte_jogar_dnv = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
         self.jogar_dnv=False
         self.pontos=pontos
-        self.fonte_pontos=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf",10)
+        self.fonte_pontos=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf",35)
         self.tempo_jogador=tempo
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/funny-yay-6273.mp3')
         self.som_tocou=False
@@ -373,8 +373,10 @@ class Tela_win():
             texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR NOVAMENTE",True,(240, 248, 255))
             pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar_dnv,0,15)
         texto_ganhador=f'VOCÊ FEZ {self.pontos} PONTOS EM {math.ceil(self.tempo_jogador)} SEGUNDOS'
+        desenho_texto_parabens = self.fonte_pontos.render("PARABENS!", True, (184, 55, 38))
         desenho_texto_jg= self.fonte_pontos.render(texto_ganhador,True,(184, 55, 38))
-        self.window.blit(desenho_texto_jg,(100,200))
+        self.window.blit(desenho_texto_jg,(360,160))
+        self.window.blit(desenho_texto_parabens,(550,100))
         self.window.blit(texto_jogar_dnv, (self.largura_tela//2-325,self.altura_tela//2-50))
         pygame.display.update()
 
