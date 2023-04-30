@@ -24,6 +24,9 @@ class Tela_Jogo():
         self.musica_tocando=False
         self.pontos_atingidos=False
         self.casa=Casa(self.window)
+        self.start_time=pygame.time.get_ticks()
+        self.final_time=0
+
 
         for i in range(6):
             x = random.randint(100, 1000)
@@ -76,6 +79,7 @@ class Tela_Jogo():
                 return Tela_game_over(self.window)
             self.andando=player
             if pontos>50:
+                
                 self.pontos_atingidos=True
                 for plataforma in self.all_plataformas:
                     if plataforma.rect.x>1300:
@@ -93,13 +97,21 @@ class Tela_Jogo():
                 if plataforma.rect.x>0:
                     passou=False
             self.andando=not(passou)
+            
             if not(self.andando) and self.player.rect.x<400:
                 self.casa.update()
+                
             player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
             if self.player.rect.x>=400:
                 self.sound.set_volume(0.25)
+                temp=pygame.time.get_ticks()
+                if self.final_time==0:
+                    self.final_time=(temp-self.start_time)/1000
+                if (temp/1000)-self.final_time>5:
+                    self.sound.stop()
+                    return Tela_win(self.window,pontos,self.final_time)
         return self
             
     def desenha(self):
@@ -286,8 +298,6 @@ class Tela_game_over():
         self.altura_tela =600
         fundo=pygame.image.load('jogo/Assets_jogo/fundo_game_over.png'). convert()
         self.fundo=pygame.transform.scale(fundo, (1300, 600))
-        self.clock=pygame.time.Clock()
-        self.FPS=15
         self.fundo_jogar_dnv = pygame.Rect(self.largura_tela//2 - 350,self.altura_tela//2-50,700,100)
         self.fonte_jogar_dnv = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
         self.jogar_dnv=False
@@ -308,7 +318,6 @@ class Tela_game_over():
         if not(self.som_tocou):
             self.som.play()
             self.som_tocou=True
-        self.clock.tick(self.FPS)
         pos_mouse = pygame.mouse.get_pos()
         if self.checa_colisao(self.fundo_jogar_dnv.x, self.fundo_jogar_dnv.y, self.fundo_jogar_dnv.width, self.fundo_jogar_dnv.height,pos_mouse[0],pos_mouse[1]):
             self.jogar_dnv = True
@@ -336,6 +345,66 @@ class Tela_game_over():
 
 class Tela_Info ():
     pass
+
+
+class Tela_win():
+    def __init__(self,window,pontos,tempo):
+        pygame.init()
+        self.window=window
+        self.largura_tela =1300
+        self.altura_tela =600
+        fundo=pygame.image.load('jogo/Assets_jogo/img_fundo.png'). convert()
+        self.fundo=pygame.transform.scale(fundo, (1300, 600))
+        self.fundo_jogar_dnv = pygame.Rect(self.largura_tela//2 - 350,self.altura_tela//2-50,700,100)
+        self.fonte_jogar_dnv = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 80)
+        self.jogar_dnv=False
+        self.pontos=pontos
+        self.fonte_pontos=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf",10)
+        self.tempo_jogador=tempo
+        self.sound=pygame.mixer.Sound('jogo/Assets_jogo/funny-yay-6273.mp3')
+        self.som_tocou=False
+
+    def desenha(self):
+        self.window.blit(self.fundo,(0,0))
+        if self.jogar_dnv:
+            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR NOVAMENTE",True,(184, 55, 38))
+            pygame.draw.rect(self.window, (240, 248, 255),self.fundo_jogar_dnv,0,15)
+        else:
+            texto_jogar_dnv = self.fonte_jogar_dnv.render("JOGAR NOVAMENTE",True,(240, 248, 255))
+            pygame.draw.rect(self.window, (184, 55, 38),self.fundo_jogar_dnv,0,15)
+        texto_ganhador=f'VOCÊ FEZ {self.pontos} PONTOS EM {math.ceil(self.tempo_jogador)} SEGUNDOS'
+        desenho_texto_jg= self.fonte_pontos.render(texto_ganhador,True,(184, 55, 38))
+        self.window.blit(desenho_texto_jg,(100,200))
+        self.window.blit(texto_jogar_dnv, (self.largura_tela//2-325,self.altura_tela//2-50))
+        pygame.display.update()
+
+    def atualiza(self):
+        if not(self.som_tocou):
+            self.som_tocou=True
+            self.sound.play()
+        pos_mouse = pygame.mouse.get_pos()
+        if self.checa_colisao(self.fundo_jogar_dnv.x, self.fundo_jogar_dnv.y, self.fundo_jogar_dnv.width, self.fundo_jogar_dnv.height,pos_mouse[0],pos_mouse[1]):
+            self.jogar_dnv = True
+        else:
+            self.jogar_dnv= False
+    
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return -1
+            if event.type == pygame.MOUSEBUTTONDOWN and self.jogar_dnv:
+                return Tela_Inicial(self.window)
+        return self
+    
+    def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
+        if (
+            ret_x <= p_x and 
+            p_x <= ret_x + ret_largura and 
+            ret_y <= p_y and 
+            p_y <= ret_y + ret_altura
+        ):
+            return True
+        else:
+            return False
 
 class Jogo: 
     def __init__(self):
