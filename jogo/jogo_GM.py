@@ -347,7 +347,7 @@ class Tela_Info ():
     def __init__(self,window):
         pygame.init()
         self.window=window
-        fundo=pygame.image.load('jogo/Assets_jogo/img_fundo_regras.png').convert()
+        fundo=pygame.image.load('jogo/Assets_jogo/fundo_tela_info.png').convert()
         self.fundo=pygame.transform.scale(fundo,(1300,600))
         self.fundo_jogar = pygame.Rect(380,366,185,60)
         self.fonte_jogar = pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 60)
@@ -375,6 +375,38 @@ class Tela_Info ():
             pygame.draw.rect(self.window, (184, 55, 38),self.fundo_voltar,0,15)
         self.window.blit(texto_voltar, (670,360))
         pygame.display.update()
+
+    def atualiza(self):
+        self.clock.tick(self.FPS)
+        pos_mouse = pygame.mouse.get_pos()
+        if self.checa_colisao(self.fundo_jogar.x, self.fundo_jogar.y, self.fundo_jogar.width, self.fundo_jogar.height,pos_mouse[0],pos_mouse[1]):
+            self.jogar = True
+        else:
+            self.jogar= False
+        if self.checa_colisao(self.fundo_voltar.x, self.fundo_voltar.y, self.fundo_voltar.width, self.fundo_voltar.height,pos_mouse[0],pos_mouse[1]):
+            self.voltar = True
+        else:
+            self.voltar= False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return -1
+            if event.type == pygame.MOUSEBUTTONDOWN and self.jogar:
+                return Tela_Jogo(self.window)
+            if event.type == pygame.MOUSEBUTTONDOWN and self.voltar:
+                return Tela_Inicial(self.window)
+        return self
+
+    def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
+        if (
+            ret_x <= p_x and 
+            p_x <= ret_x + ret_largura and 
+            ret_y <= p_y and 
+            p_y <= ret_y + ret_altura
+        ):
+            return True
+        else:
+            return False
 
 
 class Tela_win():
