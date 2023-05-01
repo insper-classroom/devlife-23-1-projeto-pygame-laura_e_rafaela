@@ -16,8 +16,8 @@ class Tela_Jogo():
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
         self.andando=True
-        self.biscoito_dx = 0
-        self.plat_dx=0
+        self.biscoito_dx = 100
+        self.plat_dx=100
         self.all_biscoitos=pygame.sprite.Group()
         self.all_plataformas = pygame.sprite.Group()
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
@@ -29,7 +29,7 @@ class Tela_Jogo():
         self.last_updated=0
 
         for i in range(6):
-            x = random.randint(100, 1000)
+            x = random.randint(200, 1000)
             width = random.randint(2, 6)
             self.all_plataformas.add(Plataforma(x,width,self.window))
         for i in range(10):
@@ -79,7 +79,7 @@ class Tela_Jogo():
                 self.sound.stop()
                 return Tela_game_over(self.window)
             self.andando=player
-            if pontos>50:
+            if pontos>60:
                 self.pontos_atingidos=True
                 for plataforma in self.all_plataformas:
                     if plataforma.rect.x>1300:
@@ -108,9 +108,9 @@ class Tela_Jogo():
                 temp=(pygame.time.get_ticks())-self.start_time
                 if self.final_time==0:
                     self.final_time=temp/1000
-                print(temp)
                 if (temp/1000)-self.final_time>5:
                     self.sound.stop()
+                    pontos+=(self.player.vidas)*50
                     return Tela_win(self.window,pontos,self.final_time)
         return self
             
