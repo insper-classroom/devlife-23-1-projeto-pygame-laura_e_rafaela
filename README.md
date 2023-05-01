@@ -18,7 +18,7 @@ Para poder jogar é nescessario ter instalado no seu computador os seguintes ite
 
 Para instalar o pygame digite o seguinte comando no seu terminal:
 
-```python
+```
 pip install pygame
 ```
 
@@ -50,16 +50,7 @@ Após a execução do dowload abra a pasta na sua IDE de preferencia e execute o
     - Terminar o jogo com o maior número de vidas
 - Se você atingir o monstro da neve horizontalmente, ou após cair em de uma plataforma, você perderá uma vida
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9a9fcfdf-d165-461e-8e12-b31f7d4fe65c/Untitled.png)
+    ![Foto do Jogo](foto_atingindo.png)
     
 - O jogo acaba após um certa quantidade de cookies for coletados e então será mostrado o total de pontos feitos por você
 
-Vocês já tiveram 2 exemplos de arquivo README nos projetos anteriores (projeto individual e checks pygame). Desta vez não forneceremos um template, mas você pode usar os projetos anteriores como base.
-
-Lembre-se de colocar algumas imagens do jogo no seu README.
-
-**IMPORTANTE:** coloque o nome de todos os membros do grupo neste documento e na página do jogo.
-
-Além disso, a página do jogo deve ser feita dentro da pasta `docs`.
-
-APAGUE ESSE CONTEÚDO E SUBSTITUA PELO SEU PRÓPRIO README!
