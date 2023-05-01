@@ -47,10 +47,14 @@ Após a execução do dowload abra a pasta na sua IDE de preferencia e execute o
 - Seu objetivo é conseguir o máximo de pontos possiveis, para isso você deve:
     - Coletar os cookies o mais rápido, basta passar com o personagem por cima deles para coleta-los
     - Atingir o maior número de mosntros que puder, você atingi os monstros quando pula em cima deles proposicionalmente, não basta apenas cair da platorforma em cima deles
+    ![Foto do Jogo](foto_pulando.png)
+    ![Foto do Jogo](foto_descendo.png)
+
     - Terminar o jogo com o maior número de vidas
 - Se você atingir o monstro da neve horizontalmente, ou após cair em de uma plataforma, você perderá uma vida
     
     ![Foto do Jogo](foto_atingindo.png)
     
 - O jogo acaba após um certa quantidade de cookies for coletados e então será mostrado o total de pontos feitos por você
+![Foto do Jogo](foto_final.png)
 
