@@ -28,13 +28,13 @@ Após realizado a instalação dos items acima é necessario fazer o dowload do 
     1. Acesse o site do jogo pelo seguinte link [https://insper-classroom.github.io/devlife-23-1-projeto-pygame-laura_e_rafaela/bora_jogar.html](https://insper-classroom.github.io/devlife-23-1-projeto-pygame-laura_e_rafaela/bora_jogar.html) 
     2. Clique no icone de dowload
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b37b9fc-f2b6-4827-ab9b-b27e84a6b8c8/Untitled.png)
+        ![Print do github](foto_dowload.png)
         
 2. Segunda opção
-    1. Acesso a página do jogo no github atravéz do seguinte link https://github.com/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela]
+    1. Acesso a página do jogo no github atravéz do seguinte link [https://github.com/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela]
     2. Clique no botão verde escrito ‘code’ ou ‘código’
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfd75369-487b-40df-bfcd-9c04808e24c8/Untitled.png)
+        ![Print do github](foto_code.png)
         
     3. Clique no botão ‘Dowload Zip’
 
