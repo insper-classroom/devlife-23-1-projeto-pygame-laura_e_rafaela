@@ -18,7 +18,7 @@ Para poder jogar é nescessario ter instalado no seu computador os seguintes ite
 
 Para instalar o pygame digite o seguinte comando no seu terminal:
 
-```python
+```
 pip install pygame
 ```
 
@@ -28,13 +28,13 @@ Após realizado a instalação dos items acima é necessario fazer o dowload do 
     1. Acesse o site do jogo pelo seguinte link [https://insper-classroom.github.io/devlife-23-1-projeto-pygame-laura_e_rafaela/bora_jogar.html](https://insper-classroom.github.io/devlife-23-1-projeto-pygame-laura_e_rafaela/bora_jogar.html) 
     2. Clique no icone de dowload
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b37b9fc-f2b6-4827-ab9b-b27e84a6b8c8/Untitled.png)
+        ![Print do github](foto_dowload.png)
         
 2. Segunda opção
-    1. Acesso a página do jogo no github atravéz do seguinte link https://github.com/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela]
+    1. Acesso a página do jogo no github atravéz do seguinte link [https://github.com/insper-classroom/devlife-23-1-projeto-pygame-laura_e_rafaela]
     2. Clique no botão verde escrito ‘code’ ou ‘código’
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfd75369-487b-40df-bfcd-9c04808e24c8/Untitled.png)
+        ![Print do github](foto_code.png)
         
     3. Clique no botão ‘Dowload Zip’
 
@@ -47,19 +47,14 @@ Após a execução do dowload abra a pasta na sua IDE de preferencia e execute o
 - Seu objetivo é conseguir o máximo de pontos possiveis, para isso você deve:
     - Coletar os cookies o mais rápido, basta passar com o personagem por cima deles para coleta-los
     - Atingir o maior número de mosntros que puder, você atingi os monstros quando pula em cima deles proposicionalmente, não basta apenas cair da platorforma em cima deles
+    ![Foto do Jogo](foto_pulando.png)
+    ![Foto do Jogo](foto_descendo.png)
+
     - Terminar o jogo com o maior número de vidas
 - Se você atingir o monstro da neve horizontalmente, ou após cair em de uma plataforma, você perderá uma vida
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9a9fcfdf-d165-461e-8e12-b31f7d4fe65c/Untitled.png)
+    ![Foto do Jogo](foto_atingindo.png)
     
 - O jogo acaba após um certa quantidade de cookies for coletados e então será mostrado o total de pontos feitos por você
+![Foto do Jogo](foto_final.png)
 
-Vocês já tiveram 2 exemplos de arquivo README nos projetos anteriores (projeto individual e checks pygame). Desta vez não forneceremos um template, mas você pode usar os projetos anteriores como base.
-
-Lembre-se de colocar algumas imagens do jogo no seu README.
-
-**IMPORTANTE:** coloque o nome de todos os membros do grupo neste documento e na página do jogo.
-
-Além disso, a página do jogo deve ser feita dentro da pasta `docs`.
-
-APAGUE ESSE CONTEÚDO E SUBSTITUA PELO SEU PRÓPRIO README!
