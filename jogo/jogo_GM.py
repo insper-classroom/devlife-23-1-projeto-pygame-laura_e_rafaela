@@ -63,10 +63,6 @@ class Tela_Jogo():
                     y=random.randint(250,410)
                 x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
                 biscoito=Biscoito(self.window,y,x)
-                while pygame.sprite.spritecollideany(biscoito,self.all_plataformas):
-                    y=random.randint(250,410)
-                    x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
-                    biscoito=Biscoito(self.window,y,x)
                 self.all_biscoitos.add(biscoito)
             self.monstro_dx += 500
             x=random.randint(self.monstro_dx,50+ self.monstro_dx)
@@ -125,6 +121,7 @@ class Tela_Jogo():
                 self.scroll-=15
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
+        print(self.all_biscoitos)
         self.all_biscoitos.draw(self.window)
         self.all_plataformas.draw(self.window)
         self.all_monstros.draw(self.window)
@@ -155,6 +152,7 @@ class Tela_Inicial():
         self.fonte_info=pygame.font.Font("jogo/Assets_jogo/fontes/OnlineWebFonts_COM_2486b26012f1198dc8c84cbf5c960f98/Architype Aubette W90/Architype Aubette W90.ttf", 30)
         self.info=False
         self.logo=pygame.image.load('jogo/Assets_jogo/cookie_chase_vermelho.png')
+
     def desenha(self):
 
         if abs(self.scroll)>self.fundo.get_width():
@@ -490,7 +488,8 @@ class Jogo:
             self.tela_atual=self.tela_atual.atualiza()
             if self.tela_atual==-1:
                 rodando=False
-            else:self.tela_atual.desenha()
+            else:
+                self.tela_atual.desenha()
 
 
 
