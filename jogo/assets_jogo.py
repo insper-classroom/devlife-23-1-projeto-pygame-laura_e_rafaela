@@ -99,7 +99,6 @@ class Player(pygame.sprite.Sprite):
         all_plataformas.update()
         all_monstros.update(self,True)
         if self.vidas==0:
-            all_plataformas.update(False)
             return False,self.pontos
         return True,self.pontos
             
@@ -148,7 +147,9 @@ class Biscoito(pygame.sprite.Sprite):
         self.last_updated=v1 
         self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
-        
+        if self.rect.x<(0-60):
+            self.kill()
+
     def draw(self):
         self.window.blit(self.image,self.rect)
 
@@ -173,6 +174,10 @@ class Monstro(pygame.sprite.Sprite):
         self.som_esmaga=pygame.mixer.Sound('jogo/Assets_jogo/pula_no_monstro.mp3')
 
     def update(self, player, mexendo):
+
+        if self.rect.x<(0-80):
+            self.kill()
+
         v1=pygame.time.get_ticks()
         if mexendo:
             delta_t=(v1-self.last_updated)/1000
@@ -212,7 +217,7 @@ class Plataforma (pygame.sprite.Sprite):
         self.h=20
         self.x=x
         self.y=300
-        self.width = width
+        self.width =width
         self.rect =pygame.Rect(self.x+15,self.y,self.width+40,self.h)
         self.window=window
         self.last_updated=0
@@ -222,15 +227,15 @@ class Plataforma (pygame.sprite.Sprite):
     def draw(self):
         self.window.blit(self.image, self.rect.y)
 
-    def update(self,mexendo=True):
+    def update(self):
+        
         v1=pygame.time.get_ticks()
         delta_t=(v1-self.last_updated)/1000
         self.last_updated=v1 
         self.rect.x=self.rect.x+(self.vel*delta_t)
         self.last_updated=v1
-        if not(mexendo):
-            if self.x>1300:
-                self.kill
+        if self.rect.x<(0-self.width-80):
+            self.kill()
 
     
 class Casa (pygame.sprite.Sprite):

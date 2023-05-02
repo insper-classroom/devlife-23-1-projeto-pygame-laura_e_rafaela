@@ -16,8 +16,8 @@ class Tela_Jogo():
         self.tiles=math.ceil(self.window.get_width()/self.fundo.get_width())+1
         self.scroll=0
         self.andando=True
-        self.biscoito_dx = 100
-        self.plat_dx=100
+        self.biscoito_dx = 300
+        self.plat_dx=300
         self.all_biscoitos=pygame.sprite.Group()
         self.all_plataformas = pygame.sprite.Group()
         self.sound=pygame.mixer.Sound('jogo/Assets_jogo/jingle-bells-rock-energetic-positive-upbeat-happy-christmas-party-125676.mp3')
@@ -29,7 +29,7 @@ class Tela_Jogo():
         self.last_updated=0
 
         for i in range(6):
-            x = random.randint(200, 1000)
+            x = random.randint(500, 1000)
             width = random.randint(2, 6)
             self.all_plataformas.add(Plataforma(x,width,self.window))
         for i in range(10):
@@ -51,23 +51,27 @@ class Tela_Jogo():
             self.musica_tocando=True
         self.clock.tick(self.FPS)
         if not(self.pontos_atingidos):
-            self.plat_dx+=1000
-            for i in range(10):
-                x = random.randint(100, 1000)
-                width = random.randint(2, 6)
-                self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
-            self.biscoito_dx += 1000
-            for i in range(10):
-                y=random.randint(350,410)
-                while not(280>y or y>370):
-                    y=random.randint(250,410)
-                x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
-                biscoito=Biscoito(self.window,y,x)
-                self.all_biscoitos.add(biscoito)
-            self.monstro_dx += 500
-            x=random.randint(self.monstro_dx,50+ self.monstro_dx)
-            monstro = Monstro(self.window, x)
-            self.all_monstros.add(monstro)
+            if len(self.all_plataformas)<100:
+                self.plat_dx+=1000
+                for i in range(10):
+                    x = random.randint(100, 1000)
+                    width = random.randint(2, 6)
+                    self.all_plataformas.add(Plataforma(self.plat_dx+x,width,self.window))
+            if len(self.all_biscoitos)<100:
+                self.biscoito_dx += 1000
+                for i in range(10):
+                    y=random.randint(350,410)
+                    while not(280>y or y>370):
+                        y=random.randint(200,410)
+                    x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
+                    biscoito=Biscoito(self.window,y,x)
+                    self.all_biscoitos.add(biscoito)
+            
+            if len(self.all_monstros)<100:
+                self.monstro_dx += 500
+                x=random.randint(self.monstro_dx,50+ self.monstro_dx)
+                monstro = Monstro(self.window, x)
+                self.all_monstros.add(monstro)
             player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
@@ -121,7 +125,6 @@ class Tela_Jogo():
                 self.scroll-=15
         for i in range(self.tiles):
             self.window.blit(self.fundo,(i*self.fundo.get_width()+self.scroll,0))
-        print(self.all_biscoitos)
         self.all_biscoitos.draw(self.window)
         self.all_plataformas.draw(self.window)
         self.all_monstros.draw(self.window)
@@ -330,7 +333,7 @@ class Tela_game_over():
             if event.type == pygame.QUIT:
                 return -1
             if event.type == pygame.MOUSEBUTTONDOWN and self.jogar_dnv:
-                return Tela_Inicial(self.window)
+                return Tela_Jogo(self.window)
         return self
     
     def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
