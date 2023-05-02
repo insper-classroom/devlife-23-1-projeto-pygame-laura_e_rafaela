@@ -459,7 +459,7 @@ class Tela_win():
             if event.type == pygame.QUIT:
                 return -1
             if event.type == pygame.MOUSEBUTTONDOWN and self.jogar_dnv:
-                return Tela_Inicial(self.window)
+                return Tela_Jogo(self.window)
         return self
     
     def checa_colisao(self,ret_x, ret_y, ret_largura, ret_altura, p_x, p_y):
