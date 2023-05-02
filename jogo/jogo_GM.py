@@ -27,7 +27,7 @@ class Tela_Jogo():
         self.final_time=0
         self.start_time=pygame.time.get_ticks()
         self.last_updated=0
-
+        self.monstro_dx = 100
         for i in range(6):
             x = random.randint(500, 1000)
             width = random.randint(2, 6)
@@ -39,7 +39,6 @@ class Tela_Jogo():
             x = random.randint(self.biscoito_dx+500,1500 + self.biscoito_dx)
             biscoito=Biscoito(self.window,y,x)
             self.all_biscoitos.add(biscoito)
-        self.monstro_dx = 0
         x=random.randint(self.monstro_dx,50+self.monstro_dx)
         monstro = Monstro(self.window, x)
         self.all_monstros.add(monstro)
