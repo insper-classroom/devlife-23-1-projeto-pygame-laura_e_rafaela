@@ -103,6 +103,9 @@ class Tela_Jogo():
             player,pontos=self.player.update(self.all_biscoitos,self.all_plataformas,self.all_monstros,self.andando)
             if player == -1:
                 return -1
+            if not player:
+                self.sound.stop()
+                return Tela_game_over(self.window)
             if self.player.rect.x>=400:
                 self.sound.set_volume(0.25) 
                 temp=(pygame.time.get_ticks())-self.start_time
