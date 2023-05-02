@@ -79,7 +79,7 @@ class Tela_Jogo():
                 self.sound.stop()
                 return Tela_game_over(self.window)
             self.andando=player
-            if pontos>60:
+            if pontos>500:
                 self.pontos_atingidos=True
                 for plataforma in self.all_plataformas:
                     if plataforma.rect.x>1300:
