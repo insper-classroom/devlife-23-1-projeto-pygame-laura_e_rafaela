@@ -187,6 +187,7 @@ class Tela_Inicial():
         window:
             janela do jogo 
         '''
+    
         pygame.init()
         self.window=window
         self.largura_tela =1300
