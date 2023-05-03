@@ -402,6 +402,7 @@ class Casa (pygame.sprite.Sprite):
         controla a entrada da casa no jogo
     '''
     def __init__(self,window):
+       
         '''
         Função que inicia a classe Casa e define os valores do self
         ...
